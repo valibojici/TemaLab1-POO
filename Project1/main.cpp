@@ -31,7 +31,6 @@ public:
 	Wheel(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment,bool extremeDamage=false)
 		: m_brakePad(brakePad), m_brakeDisc(brakeDisc), m_flatTire(m_flatTire), m_alignment(alignment), m_hasExtremeDamage(extremeDamage) {}
 
-	void wear(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment, bool extremeDamage = false);
 	void wear();
 	std::string diagnose();
 };
@@ -40,10 +39,12 @@ class Engine {
 private:
 	static const int s_oilChangeCost = 60;
 	static const int s_cleanCost = 100;
+	static const int s_batteryCost = 300;
 
 	bool m_lowOilLevel;
 	bool m_engineIsMelted;
 	bool m_isDirty;
+	bool m_batteryIsDischarghed;
 
 public:
 
@@ -54,17 +55,19 @@ public:
 	void set_engineIsMelted(bool value) {  m_engineIsMelted = value; }
 	void set_isDirty(bool value) {  m_isDirty = value; }
 
-	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0) {}
-	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty)
-		: m_lowOilLevel(lowOilLevel), m_engineIsMelted(engineIsMelted), m_isDirty(isDirty) {}
+	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0) {}
+	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged)
+		: m_lowOilLevel(lowOilLevel), m_engineIsMelted(engineIsMelted), m_isDirty(isDirty),m_batteryIsDischarghed(batteryIsDischarged) {}
 
-	void wear(bool lowOilLevel, bool engineIsMelted, bool isDirty);
 	void wear();
 	std::string diagnose();
 };
 
 class Body {
 private:
+	static const int s_componentRepairCost = 300;
+	static const int s_paintCost = 700;
+
 	// values from 0 to 3 (0 = perfect condition/no rust 3 = very poor condition/a lot of rust)
 	int m_wingFrontLeft;
 	int m_wingFrontRight;
@@ -100,7 +103,6 @@ public:
 		m_bumper(bumper), m_hood(hood), m_rust(rust), m_hasExtremeDamage(extremeDamage) {}
 
 	void wear();
-	void wear(int wingFR, int wingFL, int wingRL, int wingRR, int bumper, int hood, int rust, bool extremeDamage = 0);
 	std::string diagnose();
 };
 
@@ -129,7 +131,6 @@ public:
 		: m_isBroken(isBroken), m_isWornOut(isWornOut), m_isMissing(isMissing) {}
 
 	void wear();
-	void wear(bool isBroken, bool isWornOut, bool isMissing);
 	std::string diagnose();
 };
 
@@ -152,6 +153,27 @@ public:
 	Emissions(bool isMadeBefore2000, bool isBurningOil)
 		: m_isMadeBefore2000(isMadeBefore2000), m_isBurningOil(isBurningOil) {}
 
+	void wear();
+	std::string diagnose();
+};
+
+class Light {
+private:
+	static const int s_lightCost = 500;
+	static const int s_wiresCost = 200;
+
+	bool m_isBroken;
+	bool m_isDisconnected;
+public:
+	void set_isBroken(bool value) { m_isBroken = value; }
+	void set_isDisconnected(bool value) { m_isDisconnected = value; }
+	bool get_isBroken() { return m_isBroken; }
+	bool get_isDisconnected() { return m_isDisconnected; }
+
+	Light() : m_isBroken(0), m_isDisconnected(0) {}
+	Light(bool isBroken, bool isDisconnected) : m_isBroken(isBroken), m_isDisconnected(isDisconnected) {}
+	
+	void wear();
 	std::string diagnose();
 };
 
@@ -159,8 +181,10 @@ class Car {
 private:
 	Engine engine;
 	Body body;
-	Wheel wheelFL, wheelFR, wheelRL, wheelRR;
+	Wheel wheelFL, wheelFR, wheelRL, wheelRR; // FL = front right RL = rear right
 	Emissions emissions;
+	Light lampFL, lampFR, brakeRL, brakeRR;
+
 public:
 	Car() {}
 	void wear()
@@ -171,6 +195,10 @@ public:
 		wheelFR.wear();
 		wheelRL.wear();
 		wheelRR.wear();
+		lampFL.wear();
+		lampFR.wear();
+		brakeRL.wear();
+		brakeRR.wear();
 	}
 
 	friend std::ostream& operator<<(std::ostream& stream,Car& car)
@@ -181,6 +209,11 @@ public:
 		stream << "Front Right Wheel:\n" << car.wheelFR.diagnose() << '\n';
 		stream << "Rear Left Wheel:\n" << car.wheelRL.diagnose() << '\n';
 		stream << "Rear Right Wheel:\n" << car.wheelRR.diagnose() << '\n';
+		stream << "Front Left Headlamp:\n" << car.lampFL.diagnose() << '\n';
+		stream << "Front Right Head light:\n" << car.lampFR.diagnose() << '\n';
+		stream << "Rear Left Brake light:\n" << car.brakeRL.diagnose() << '\n';
+		stream << "Rear Right Brake light:\n" << car.brakeRR.diagnose() << '\n';
+
 		return stream;
 	}
 };
@@ -229,7 +262,7 @@ std::string Wheel::diagnose()
 			diagnostic += "major misalignment; ";
 		}
 	}
-	return diagnostic;
+	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
 void Wheel::wear()
@@ -238,23 +271,6 @@ void Wheel::wear()
 	m_brakeDisc = rand() % 2;
 	m_flatTire = rand() % 2;
 	m_alignment = rand() % 4;
-	if (m_brakeDisc && m_brakePad && m_flatTire && m_alignment >= 2)
-	{
-		m_hasExtremeDamage = true;
-	}
-}
-
-void Wheel::wear(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment, bool extremeDamage)
-{
-	m_hasExtremeDamage = extremeDamage;
-	if (extremeDamage)
-	{
-		return;
-	}
-	m_brakePad = brakePad;
-	m_brakeDisc = brakeDisc;
-	m_flatTire = m_flatTire;
-	m_alignment = alignment;
 	if (m_brakeDisc && m_brakePad && m_flatTire && m_alignment >= 2)
 	{
 		m_hasExtremeDamage = true;
@@ -276,7 +292,11 @@ std::string Engine::diagnose()
 	{
 		diagnostic += "engine is dirty; ";
 	}
-	return diagnostic;
+	if (m_batteryIsDischarghed)
+	{
+		diagnostic += "discharged battery; ";
+	}
+	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
 void Engine::wear()
@@ -284,13 +304,7 @@ void Engine::wear()
 	m_lowOilLevel = rand() % 2;
 	m_engineIsMelted = rand() % 2;
 	m_isDirty = rand() % 2;
-}
-
-void Engine::wear(bool lowOilLevel, bool engineIsMelted, bool isDirty)
-{
-	m_lowOilLevel = lowOilLevel;
-	m_engineIsMelted = engineIsMelted;
-	m_isDirty = isDirty;
+	m_batteryIsDischarghed = rand() % 2;
 }
 
 std::string Body::diagnose()
@@ -331,7 +345,7 @@ std::string Body::diagnose()
 	{
 		diagnostic += prefix[m_rust] + " rust problem; ";
 	}
-	return diagnostic;
+	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
 void Body::wear()
@@ -344,18 +358,6 @@ void Body::wear()
 	m_hood = rand() % 4;
 	m_rust = rand() % 4;
 	m_hasExtremeDamage = !bool(rand() % 11);
-}
-
-void Body::wear(int wingFR, int wingFL, int wingRL, int wingRR, int bumper, int hood, int rust, bool extremeDamage)
-{
-	m_wingFrontRight = wingFR;
-	m_wingFrontLeft = wingFL;
-	m_wingRearLeft = wingRL;
-	m_wingRearRight= wingRR;
-	m_bumper = bumper;
-	m_hood = hood;
-	m_rust = rust;
-	m_hasExtremeDamage = extremeDamage;
 }
 
 std::string Chain::diagnose()
@@ -373,7 +375,7 @@ std::string Chain::diagnose()
 	{
 		diagnose = "worn out " + diagnose;
 	}
-	return diagnose != "chain" ? diagnose + '\n' : "";
+	return diagnose == "chain" ? "No problems" : diagnose;
 }
 
 void Chain::wear()
@@ -383,23 +385,41 @@ void Chain::wear()
 	m_isMissing = !bool(rand() % 5);
 }
 
-void Chain::wear(bool isBroken, bool isWornOut, bool isMissing)
+void Emissions::wear()
 {
-	m_isBroken = isBroken;
-	m_isWornOut = isWornOut;
-	m_isMissing = isMissing;
+	m_isBurningOil = rand() % 2;
+	m_isMadeBefore2000 = rand() % 2;
 }
 
 std::string Emissions::diagnose() 
 {
-	std::string diagnose = "";
+	std::string diagnostic = "";
 	if (m_isBurningOil)
 	{
-		diagnose += "is burning oil\n";
+		diagnostic += "is burning oil\n";
 	}
 	if (m_isMadeBefore2000)
 	{
-		diagnose += "is made before 2000\n";
+		diagnostic += "is made before 2000\n";
 	}
-	return diagnose;
+	return diagnostic != "" ? "No problems" : diagnostic;
+}
+
+void Light::wear() {
+	m_isBroken = rand() % 2;
+	m_isDisconnected = rand() % 2;
+}
+
+std::string Light::diagnose()
+{
+	std::string diagnostic = "lamp";
+	if (m_isBroken)
+	{
+		diagnostic = "broken " + diagnostic;
+	}
+	if (m_isDisconnected)
+	{
+		diagnostic = "disconnected " + diagnostic;
+	}
+	return diagnostic == "lamp" ? "No problem" : diagnostic;
 }
