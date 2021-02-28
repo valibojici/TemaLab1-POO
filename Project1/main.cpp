@@ -32,6 +32,7 @@ public:
 		: m_brakePad(brakePad), m_brakeDisc(brakeDisc), m_flatTire(m_flatTire), m_alignment(alignment), m_hasExtremeDamage(extremeDamage) {}
 
 	void wear();
+	float getRepairCost(bool isFrontWheel);
 	std::string diagnose();
 };
 
@@ -45,6 +46,7 @@ private:
 	bool m_engineIsMelted;
 	bool m_isDirty;
 	bool m_batteryIsDischarghed;
+	bool m_hasExtremeDamage;
 
 public:
 
@@ -55,11 +57,13 @@ public:
 	void set_engineIsMelted(bool value) {  m_engineIsMelted = value; }
 	void set_isDirty(bool value) {  m_isDirty = value; }
 
-	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0) {}
-	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged)
-		: m_lowOilLevel(lowOilLevel), m_engineIsMelted(engineIsMelted), m_isDirty(isDirty),m_batteryIsDischarghed(batteryIsDischarged) {}
+	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0), m_hasExtremeDamage(0) {}
+	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage)
+		: m_lowOilLevel(lowOilLevel), m_engineIsMelted(engineIsMelted), m_isDirty(isDirty), m_hasExtremeDamage(extremeDamage),
+			m_batteryIsDischarghed(batteryIsDischarged) {}
 
 	void wear();
+	float getRepairCost();
 	std::string diagnose();
 };
 
@@ -103,6 +107,7 @@ public:
 		m_bumper(bumper), m_hood(hood), m_rust(rust), m_hasExtremeDamage(extremeDamage) {}
 
 	void wear();
+	float getRepairCost();
 	std::string diagnose();
 };
 
@@ -131,6 +136,7 @@ public:
 		: m_isBroken(isBroken), m_isWornOut(isWornOut), m_isMissing(isMissing) {}
 
 	void wear();
+	float getRepairCost(bool isBicycle);
 	std::string diagnose();
 };
 
@@ -154,6 +160,7 @@ public:
 		: m_isMadeBefore2000(isMadeBefore2000), m_isBurningOil(isBurningOil) {}
 
 	void wear();
+	float getRepairCost();
 	std::string diagnose();
 };
 
@@ -174,6 +181,7 @@ public:
 	Light(bool isBroken, bool isDisconnected) : m_isBroken(isBroken), m_isDisconnected(isDisconnected) {}
 	
 	void wear();
+	float getRepairCost();
 	std::string diagnose();
 };
 
@@ -203,20 +211,40 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& stream,Car& car)
 	{
-		stream << "Engine:\n" << car.engine.diagnose() << '\n';
+		stream << "Engine:" << car.engine.diagnose() << '\n';
+		stream << car.engine.getRepairCost() << '\n';
 		stream << "Body:\n" << car.body.diagnose() << '\n';
-		stream << "Front Left Wheel:\n" << car.wheelFL.diagnose() << '\n';
-		stream << "Front Right Wheel:\n" << car.wheelFR.diagnose() << '\n';
-		stream << "Rear Left Wheel:\n" << car.wheelRL.diagnose() << '\n';
-		stream << "Rear Right Wheel:\n" << car.wheelRR.diagnose() << '\n';
-		stream << "Front Left Headlamp:\n" << car.lampFL.diagnose() << '\n';
-		stream << "Front Right Head light:\n" << car.lampFR.diagnose() << '\n';
-		stream << "Rear Left Brake light:\n" << car.brakeRL.diagnose() << '\n';
-		stream << "Rear Right Brake light:\n" << car.brakeRR.diagnose() << '\n';
-
+		stream << car.engine.getRepairCost() << '\n';
+		stream << "Front Left Wheel:" << car.wheelFL.diagnose() << '\n';
+		stream << car.wheelFL.getRepairCost(true) << '\n';
+		stream << "Front Right Wheel:" << car.wheelFR.diagnose() << '\n';
+		stream << car.wheelFR.getRepairCost(true) << '\n';
+		stream << "Rear Left Wheel:" << car.wheelRL.diagnose() << '\n';
+		stream << car.wheelRL.getRepairCost(false) << '\n';
+		stream << "Rear Right Wheel:" << car.wheelRR.diagnose() << '\n';
+		stream << car.wheelRR.getRepairCost(false) << '\n';
+		stream << "Front Left Headlamp:" << car.lampFL.diagnose() << '\n';
+		stream << car.lampFL.getRepairCost() << '\n';
+		stream << "Front Right Head light:" << car.lampFR.diagnose() << '\n';
+		stream << car.lampFR.getRepairCost() << '\n';
+		stream << "Rear Left Brake light:" << car.brakeRL.diagnose() << '\n';
+		stream << car.brakeRL.getRepairCost() << '\n';
+		stream << "Rear Right Brake light:" << car.brakeRR.diagnose() << '\n';
+		stream << car.brakeRR.getRepairCost() << '\n';
 		return stream;
 	}
 };
+
+class AutoShop {
+private:
+	int m_brakePadFrontCost;
+	int m_brakePadRearCost;
+	int m_brakeDiscCost;
+	int m_tireReplaceCost;
+	int m_wheelAlignmentCost;
+
+};
+
 int main()
 {
 	srand(time(0));
@@ -265,6 +293,21 @@ std::string Wheel::diagnose()
 	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
+float Wheel::getRepairCost(bool isFrontWheel)
+{
+	if (m_hasExtremeDamage)
+	{
+		return 0;
+	}
+	float cost = 0;
+	cost += isFrontWheel* s_brakePadFrontCost* m_brakePad;
+	cost += !isFrontWheel * s_brakePadRearCost * m_brakePad;
+	cost += s_brakeDiscCost * m_brakeDisc;
+	cost += s_tireCost * m_flatTire;
+	cost += s_alignmentCost/3 * m_alignment;
+	return round(cost * 100) / 100;
+}
+
 void Wheel::wear()
 {
 	m_brakePad = rand() % 2;
@@ -299,12 +342,26 @@ std::string Engine::diagnose()
 	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
+float Engine::getRepairCost()
+{
+	if (m_hasExtremeDamage)
+	{
+		return 0;
+	}
+	float cost = 0;
+	if (m_engineIsMelted || m_lowOilLevel)cost = s_oilChangeCost;
+	cost += m_isDirty * s_cleanCost;
+	cost += m_batteryIsDischarghed * s_batteryCost;
+	return round(cost * 100) / 100;
+}
+
 void Engine::wear()
 {
 	m_lowOilLevel = rand() % 2;
 	m_engineIsMelted = rand() % 2;
 	m_isDirty = rand() % 2;
 	m_batteryIsDischarghed = rand() % 2;
+	m_hasExtremeDamage = !bool(rand() % 10);
 }
 
 std::string Body::diagnose()
@@ -348,6 +405,19 @@ std::string Body::diagnose()
 	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
+float Body::getRepairCost()
+{
+	if (m_hasExtremeDamage)
+	{
+		return 0;
+	}
+	float cost = 0;
+	cost += (m_wingFrontLeft/3 + m_wingFrontRight/3 + m_wingRearLeft/3 + m_wingRearRight/3) * s_componentRepairCost;
+	cost += (m_bumper/3 + m_hood/3)  * s_componentRepairCost;
+	cost += m_rust / 3 * s_paintCost;
+	return round(cost * 100) / 100;
+}
+
 void Body::wear()
 {
 	m_wingFrontLeft = rand() % 4;
@@ -378,6 +448,20 @@ std::string Chain::diagnose()
 	return diagnose == "chain" ? "No problems" : diagnose;
 }
 
+float Chain::getRepairCost(bool isBicycle)
+{
+	float cost = 0;
+	if (m_isWornOut || m_isMissing)
+	{
+		cost += isBicycle * s_newBicycleChainPrice + !isBicycle * s_newBikeChainPrice;
+	}
+	else if (m_isBroken)
+	{
+		cost += isBicycle * s_repairBicyleChainPrice + !isBicycle * s_repairBikeChainPrice;
+	}
+	return round(cost * 100) / 100;
+}
+
 void Chain::wear()
 {
 	m_isBroken = rand() % 2;
@@ -389,6 +473,14 @@ void Emissions::wear()
 {
 	m_isBurningOil = rand() % 2;
 	m_isMadeBefore2000 = rand() % 2;
+}
+
+float Emissions::getRepairCost()
+{
+	float cost = 0;
+	cost += m_isBurningOil* s_oilChangeCost;
+	cost += m_isMadeBefore2000 * s_emissionsRepairCost;
+	return round(cost * 100) / 100;
 }
 
 std::string Emissions::diagnose() 
@@ -408,6 +500,14 @@ std::string Emissions::diagnose()
 void Light::wear() {
 	m_isBroken = rand() % 2;
 	m_isDisconnected = rand() % 2;
+}
+
+float Light::getRepairCost()
+{
+	float cost = 0;
+	cost += m_isBroken* s_lightCost;
+	cost += m_isDisconnected * s_wiresCost;
+	return float(cost * 100) / 100;
 }
 
 std::string Light::diagnose()
