@@ -3,13 +3,8 @@
 #include <time.h>
 
 class Wheel {
+	friend AutoShop;
 private:
-	static const int s_brakePadFrontCost = 300;
-	static const int s_brakePadRearCost = 200;
-	static const int s_brakeDiscCost = 700;
-	static const int s_tireCost = 150;
-	static const int s_alignmentCost = 500;
-
 	bool m_brakePad;
 	bool m_brakeDisc;
 	bool m_hasExtremeDamage;
@@ -38,10 +33,6 @@ public:
 
 class Engine {
 private:
-	static const int s_oilChangeCost = 60;
-	static const int s_cleanCost = 100;
-	static const int s_batteryCost = 300;
-
 	bool m_lowOilLevel;
 	bool m_engineIsMelted;
 	bool m_isDirty;
@@ -235,14 +226,78 @@ public:
 	}
 };
 
+class Bike{};
+
+class Moto {};
+
 class AutoShop {
 private:
-	int m_brakePadFrontCost;
-	int m_brakePadRearCost;
-	int m_brakeDiscCost;
-	int m_tireReplaceCost;
-	int m_wheelAlignmentCost;
+	int m_brakePadFrontCost = 0;
+	int m_brakePadRearCost = 0;
+	int m_brakeDiscCost = 0;
+	int m_tireCost = 0;
+	int m_wheelAlignmentCost = 0;
+	int m_oilCost = 0;
+	int m_cleaningProductsCost = 0;
+	int m_batteryCost = 0;
+	int m_paintCost = 0;
+	int m_motoChainCost = 0;
+	int m_bikeChainCost = 0;
+	int m_aluminiumCost = 0;
+	int m_steelCost = 0;
+	int m_screwCost = 0;
+	int m_rivetCost = 0;
+	int m_wireCost = 0;
+	int m_lubricantCost = 0;
 
+	Car m_car;
+	Bike m_bike;
+	Moto m_moto;
+
+public:
+	AutoShop() {}
+	void set_brakePadFrontCost(int value) { m_brakePadFrontCost = value;}
+	void set_brakePadRearCost(int value) { m_brakePadRearCost = value;}
+	void set_brakeDiscCost(int value) { m_brakeDiscCost = value;}
+	void set_tireCost(int value) { m_tireCost = value;}
+	void set_wheelAlignmentCost(int value) { m_wheelAlignmentCost = value;}
+	void set_oilCost(int value) { m_oilCost = value;}
+	void set_cleaningProductsCost(int value) { m_cleaningProductsCost = value;}
+	void set_batteryCost(int value) { m_batteryCost = value;}
+	void set_paintCost(int value) { m_paintCost = value;}
+	void set_motoChainCost(int value) { m_motoChainCost = value;}
+	void set_bikeChainCost(int value) { m_bikeChainCost = value;}
+	void set_aluminiumCost(int value) { m_aluminiumCost = value;}
+	void set_steelCost(int value) { m_steelCost = value;}
+	void set_screwCost(int value) { m_screwCost = value;}
+	void set_rivetCost(int value) { m_rivetCost = value;}
+	void set_wireCost(int value) { m_wireCost = value;}
+	void set_lubricantCost(int value) { m_lubricantCost = value;}
+	
+	int get_brakePadFrontCost() { return m_brakePadFrontCost; }
+	int get_brakePadRearCost() { return m_brakePadRearCost; }
+	int get_brakeDiscCost() { return m_brakeDiscCost; }
+	int get_tireCost() { return m_tireCost; }
+	int get_wheelAlignmentCost() { return m_wheelAlignmentCost; }
+	int get_oilCost() { return m_oilCost; }
+	int get_cleaningProductsCost() { return m_cleaningProductsCost; }
+	int get_batteryCost() { return m_batteryCost; }
+	int get_paintCost() { return m_paintCost; }
+	int get_motoChainCost() { return m_motoChainCost; }
+	int get_bikeChainCost() { return m_bikeChainCost; }
+	int get_aluminiumCost() { return m_aluminiumCost; }
+	int get_steelCost() { return m_steelCost; }
+	int get_screwCost() { return m_screwCost; }
+	int get_rivetCost() { return m_rivetCost; }
+	int get_wireCost() { return m_wireCost; }
+	int get_lubricantCost() { return m_lubricantCost; }
+	
+	void set_car(Car car) { m_car = car; }
+	Car get_car() { return m_car; }
+	void set_bike(Bike bike) { m_bike = bike; }
+	Bike get_bike() { return m_bike; }
+	void set_moto(Moto moto) { m_moto = moto; }
+	Moto get_moto() { return m_moto; }
 };
 
 int main()
@@ -300,7 +355,7 @@ float Wheel::getRepairCost(bool isFrontWheel)
 		return 0;
 	}
 	float cost = 0;
-	cost += isFrontWheel* s_brakePadFrontCost* m_brakePad;
+	cost += isFrontWheel * m_brakePadFrontCost * m_brakePad;
 	cost += !isFrontWheel * s_brakePadRearCost * m_brakePad;
 	cost += s_brakeDiscCost * m_brakeDisc;
 	cost += s_tireCost * m_flatTire;
