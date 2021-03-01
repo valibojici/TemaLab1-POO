@@ -140,7 +140,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="autoshop.cpp" />
+    <ClCompile Include="bike.cpp" />
+    <ClCompile Include="body.cpp" />
+    <ClCompile Include="car.cpp" />
+    <ClCompile Include="chain.cpp" />
+    <ClCompile Include="emissions.cpp" />
+    <ClCompile Include="engine.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="moto.cpp" />
+    <ClCompile Include="wheel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="autoshop.h" />
+    <ClInclude Include="bike.h" />
+    <ClInclude Include="body.h" />
+    <ClInclude Include="car.h" />
+    <ClInclude Include="chain.h" />
+    <ClInclude Include="emissions.h" />
+    <ClInclude Include="engine.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="moto.h" />
+    <ClInclude Include="wheel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
