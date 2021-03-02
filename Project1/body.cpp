@@ -55,15 +55,15 @@ float Body::getRepairCost(const AutoShop& shop)
 	{
 		cost += m_wingFrontLeft / 3.0 * shop.get_aluminiumCost() * 10;
 		cost += m_wingFrontRight / 3.0 * shop.get_aluminiumCost() * 10;
-		cost += shop.get_screwCost() * 6;
-		cost += shop.get_rivetCost() * 4;
+		cost += (m_wingFrontRight + m_wingFrontLeft) / 3.0 * shop.get_screwCost() * 6;
+		cost += (m_wingFrontRight + m_wingFrontLeft) / 3.0 * shop.get_rivetCost() * 4;
 	}
 	if (m_wingRearLeft || m_wingRearRight)
 	{
 		cost += m_wingFrontLeft / 3.0 * (shop.get_aluminiumCost() * 7 + shop.get_steelCost() * 3);
 		cost += m_wingFrontRight / 3.0 * (shop.get_aluminiumCost() * 7 + shop.get_steelCost() * 3);
-		cost += shop.get_screwCost() * 8;
-		cost += shop.get_rivetCost() * 6;
+		cost += (m_wingFrontRight + m_wingFrontLeft) / 3.0 * shop.get_screwCost() * 8;
+		cost += (m_wingFrontRight + m_wingFrontLeft) / 3.0 * shop.get_rivetCost() * 6;
 	}
 	if (m_bumper)
 	{
@@ -80,7 +80,7 @@ float Body::getRepairCost(const AutoShop& shop)
 		if (m_rust >= 2)
 		{
 			cost += shop.get_cleaningProductsCost() * 2;
-			cost += shop.get_aluminiumCost() * 10 + shop.get_screwCost() * 12;
+			cost += shop.get_steelCost() * 12 + shop.get_aluminiumCost() * 10 + shop.get_screwCost() * 12;
 		}
 	}
 	return round(cost * 100.0) / 100;

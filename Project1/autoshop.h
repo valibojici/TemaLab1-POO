@@ -52,6 +52,11 @@ public:
 	void set_lightbulbCost(int value) { m_lightbulbCost = value; }
 	void set_emissionSensorCost(int value) { m_emissionSensorCost = value; }
 
+	void set_car(Car car) { m_car = car; }
+	void set_bike(Bike bike) { m_bike = bike; }
+	void set_moto(Moto moto) { m_moto = moto; }
+
+
 	int get_brakePadFrontCost() const { return m_brakePadFrontCost; }
 	int get_brakePadRearCost() const { return m_brakePadRearCost; }
 	int get_brakeDiscCost() const { return m_brakeDiscCost; }
@@ -72,27 +77,14 @@ public:
 	int get_lightbulbCost() const { return m_lightbulbCost; }
 	int get_emissionSensorCost() const { return m_emissionSensorCost; }
 
-	void set_car(Car car) { m_car = car; }
-	Car get_car() { return m_car; }
-	void set_bike(Bike bike) { m_bike = bike; }
-	Bike get_bike() { return m_bike; }
-	void set_moto(Moto moto) { m_moto = moto; }
-	Moto get_moto() { return m_moto; }
+	Car get_car() const { return m_car; }
+	Bike get_bike() const { return m_bike; }
+	Moto get_moto() const { return m_moto; }
 
-	float getCostCar()
-	{
-		float cost = 0;
-		cost += m_car.get_wheelFL().getRepairCost(*this, true);
-		cost += m_car.get_wheelFR().getRepairCost(*this, true);
-		cost += m_car.get_wheelRL().getRepairCost(*this, false);
-		cost += m_car.get_wheelRR().getRepairCost(*this, false);
-		cost += m_car.get_emissions().getRepairCost(*this);
-		cost += m_car.get_headlightFL().getRepairCost(*this);
-		cost += m_car.get_headlightFR().getRepairCost(*this);
-		cost += m_car.get_brakelightRL().getRepairCost(*this);
-		cost += m_car.get_brakelightRR().getRepairCost(*this);
-		cost += m_car.get_engine().getRepairCost(*this);
-		cost += m_car.get_body().getRepairCost(*this);
-		return cost;
-	}
+	float getCostCar();
+
+	void mainMenu();
+	void carMenu();
+	void bikeMenu();
+	void motoMenu();
 };

@@ -1,10 +1,6 @@
 #include "light.h"
 #include "autoshop.h"
 
-void Light::wear() {
-	m_isBroken = rand() % 2;
-	m_isDisconnected = rand() % 2;
-}
 
 float Light::getRepairCost(const AutoShop& shop)
 {
@@ -34,4 +30,9 @@ std::string Light::diagnose()
 		diagnostic = "disconnected " + diagnostic;
 	}
 	return diagnostic == "lamp" ? "No problem" : diagnostic;
+}
+
+void Light::wear() {
+	m_isBroken = rand() % 2;
+	m_isDisconnected = rand() % 2;
 }

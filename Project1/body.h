@@ -36,6 +36,7 @@ public:
 	void set_hasExtremeDamage(int value) { m_hasExtremeDamage = value; }
 
 	Body() : m_wingFrontRight(0), m_wingFrontLeft(0), m_wingRearLeft(0), m_wingRearRight(0), m_bumper(0), m_hood(0), m_rust(0), m_hasExtremeDamage(0) {}
+	
 	Body(int wingFR, int wingFL, int wingRL, int wingRR, int bumper, int hood, int rust, bool extremeDamage = 0)
 		: m_wingFrontRight(wingFR), m_wingFrontLeft(wingFL), m_wingRearLeft(wingRL), m_wingRearRight(wingRR),
 		m_bumper(bumper), m_hood(hood), m_rust(rust), m_hasExtremeDamage(extremeDamage) {}

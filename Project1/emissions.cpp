@@ -1,12 +1,6 @@
 #include "emissions.h"
 #include "autoshop.h"
 
-void Emissions::wear()
-{
-	m_isBurningOil = rand() % 2;
-	m_isMadeBefore2000 = rand() % 2;
-}
-
 float Emissions::getRepairCost(const AutoShop& shop)
 {
 	float cost = 0;
@@ -37,4 +31,11 @@ std::string Emissions::diagnose()
 		diagnostic += "is made before 2000\n";
 	}
 	return diagnostic != "" ? "No problems" : diagnostic;
+}
+
+
+void Emissions::wear()
+{
+	m_isBurningOil = rand() % 2;
+	m_isMadeBefore2000 = rand() % 2;
 }

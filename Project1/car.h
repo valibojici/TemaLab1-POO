@@ -56,6 +56,17 @@ public:
 	void flatTire(std::string pos);
 	void destroyWheel(std::string pos);
  
- 
+	void madeBefore2000();
+	void burnOil();
+
+	void damageWing(std::string pos, int value);
+	void damageBumper(int value);
+	void damageHood(int value);
+	void rust(int value);
+	void destroyBody();
+
+	void breakLight(std::string pos);
+	void disconnectLight(std::string pos);
+
 	void wear(); 
 };
