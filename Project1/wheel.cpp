@@ -81,8 +81,35 @@ void Wheel::wear()
 	m_brakeDisc = rand() % 2;
 	m_flatTire = rand() % 2;
 	m_alignment = rand() % 4;
-	if (m_brakeDisc && m_brakePad && m_flatTire && m_alignment >= 2)
-	{
-		m_hasExtremeDamage = true;
-	}
+	m_hasExtremeDamage = !bool(rand() % 8);
+}
+
+void Wheel::menu()
+{
+	int option = 0;
+	do {
+		std::cout << "	Wheel Menu:\n - 1. Damage Brake Pad\n - 2. Damage Brake Disc\n - 3. Damage Tire\n - 4. Wheel alignment\n - 0. Back\n";
+		std::cin >> option;
+		if (option == 4)
+		{
+			int align = 0;
+			std::cout << "Enter alignment value (0 aligned - 3 major misalignment): ";
+			std::cin >> align;
+			align = std::min(align, 3);
+			align = std::max(0, align);
+			m_alignment = align;
+		}
+		else
+		{
+			switch (option)
+			{
+			case 1: m_brakePad = true;
+				break;
+			case 2: m_brakeDisc = true;
+				break;
+			case 3: m_flatTire = true;
+				break;
+			}
+		}
+	} while (option != 0);
 }

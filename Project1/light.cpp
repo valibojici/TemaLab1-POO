@@ -29,10 +29,27 @@ std::string Light::diagnose()
 	{
 		diagnostic = "disconnected " + diagnostic;
 	}
-	return diagnostic == "lamp" ? "No problem" : diagnostic;
+	return diagnostic == "lamp" ? "No problems" : diagnostic;
 }
 
 void Light::wear() {
 	m_isBroken = rand() % 2;
 	m_isDisconnected = rand() % 2;
+}
+
+
+void Light::menu()
+{
+	int option = 0;
+	do {
+		std::cout << "	Light Menu:\n - 1. Break lightbulb\n - 2. Disconnect\n - 0. Back\n";
+		std::cin >> option;
+		switch (option)
+		{
+		case 1: m_isBroken = true;
+			break;
+		case 2: m_isDisconnected = true;
+			break;
+		}
+	} while (option != 0);
 }

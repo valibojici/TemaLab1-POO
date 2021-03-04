@@ -10,9 +10,11 @@ int main()
 	srand(time(0));
 
 	AutoShop a;
-	a.set_brakePadFrontCost(400);
-	a.set_brakePadRearCost(300);
-	a.set_brakeDiscCost(200);
+	
+
+	a.set_brakePadFrontCost(100);
+	a.set_brakePadRearCost(50);
+	a.set_brakeDiscCost(100);
 	a.set_tireCost(350);
 	a.set_wheelAlignmentCost(400);
 	a.set_oilCost(60);
@@ -30,18 +32,7 @@ int main()
 	a.set_lightbulbCost(75);
 	a.set_emissionSensorCost(350);
 
-	Car c;
-	c.wear();
-	a.set_car(c);
-	std::cout << a.getCostCar();
+	a.mainMenu();
+ 
 	//std::cout << c;
 }
-
-
-
-
-
-
-
-
-

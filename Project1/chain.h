@@ -14,9 +14,9 @@ public:
 	bool get_isWornOut() { return m_isWornOut; }
 	bool get_isMissing() { return m_isMissing; }
 
-	int set_isBroken(bool value) { m_isBroken = value; }
-	int set_isWornOut(bool value) { m_isWornOut = value; }
-	int set_isMissing(bool value) { m_isMissing = value; }
+	void set_isBroken(bool value) { m_isBroken = value; }
+	void set_isWornOut(bool value) { m_isWornOut = value; }
+	void set_isMissing(bool value) { m_isMissing = value; }
 
 	Chain() : m_isBroken(0), m_isWornOut(0), m_isMissing(0) {}
 	Chain(bool isBroken, bool isWornOut, bool isMissing)
@@ -25,5 +25,7 @@ public:
 	void wear();
 	float getRepairCost(const AutoShop& shop, bool isBicycle);
 	std::string diagnose();
+
+	void menu();
 };
 

@@ -1,5 +1,6 @@
 #pragma once
- 
+#include <iostream>
+
 #include "car.h"
 #include "moto.h"
 #include "bike.h"
@@ -31,7 +32,8 @@ private:
 	Moto m_moto;
 
 public:
-	AutoShop() {}
+	AutoShop() { m_car.set_shop(*this); }
+
 	void set_brakePadFrontCost(int value) { m_brakePadFrontCost = value; }
 	void set_brakePadRearCost(int value) { m_brakePadRearCost = value; }
 	void set_brakeDiscCost(int value) { m_brakeDiscCost = value; }
@@ -84,7 +86,5 @@ public:
 	float getCostCar();
 
 	void mainMenu();
-	void carMenu();
-	void bikeMenu();
-	void motoMenu();
+
 };

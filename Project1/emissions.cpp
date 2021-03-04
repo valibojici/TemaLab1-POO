@@ -24,13 +24,13 @@ std::string Emissions::diagnose()
 	std::string diagnostic = "";
 	if (m_isBurningOil)
 	{
-		diagnostic += "is burning oil\n";
+		diagnostic += "is burning oil; ";
 	}
 	if (m_isMadeBefore2000)
 	{
-		diagnostic += "is made before 2000\n";
+		diagnostic += "is made before 2000; ";
 	}
-	return diagnostic != "" ? "No problems" : diagnostic;
+	return diagnostic == "" ? "No problems" : diagnostic;
 }
 
 
@@ -38,4 +38,20 @@ void Emissions::wear()
 {
 	m_isBurningOil = rand() % 2;
 	m_isMadeBefore2000 = rand() % 2;
+}
+
+void Emissions::menu()
+{
+	int option = 0;
+	do {
+		std::cout << "	Emissions menu\n" << " - 1. Burn Oil\n - 2. Made before 2000\n - 0. Back\n";
+		std::cin >> option;
+		switch (option)
+		{
+		case 1: m_isBurningOil = true;
+			break;
+		case 2: m_isMadeBefore2000 = true;
+			break;
+		}
+	} while (option != 0);
 }

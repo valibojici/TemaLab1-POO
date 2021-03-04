@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,6 +147,7 @@
     <ClCompile Include="chain.cpp" />
     <ClCompile Include="emissions.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="handlebars.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="moto.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="chain.h" />
     <ClInclude Include="emissions.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="handlebars.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="moto.h" />
     <ClInclude Include="wheel.h" />

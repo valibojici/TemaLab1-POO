@@ -97,3 +97,52 @@ void Body::wear()
 	m_rust = rand() % 4;
 	m_hasExtremeDamage = !bool(rand() % 11);
 }
+
+void Body::menu()
+{
+	int option = 0;
+	do {
+		std::cout << "	Body Menu\n";
+		std::cout << "- 1. Front Left Wing Condition\n";
+		std::cout << "- 2. Front Right Wing Condition\n";
+		std::cout << "- 3. Rear Left Wing Condition\n";
+		std::cout << "- 4. Rear Right Wing Condition\n";
+		std::cout << "- 5. Hood Condition\n";
+		std::cout << "- 6. Bumper Condition\n";
+		std::cout << "- 7. Rust Condition\n";
+		std::cout << "- 8. Destroy Body\n";
+		std::cout << "- 0. Back\n";
+		std::cin >> option;
+		if (option >= 1 && option <= 7)
+		{
+			int condition = 0;
+			std::cout << "Enter condition 0(perfect) - 3(very bad): ";
+			std::cin >> condition;
+			condition = std::min(3, condition);
+			condition = std::max(0, condition);
+
+			switch (option)
+			{
+			case 1: m_wingFrontLeft = condition;
+				break;
+			case 2: m_wingFrontRight = condition;
+				break;
+			case 3: m_wingRearLeft = condition;
+				break;
+			case 4: m_wingRearRight = condition;
+				break;
+			case 5: m_hood = condition;
+				break;
+			case 6: m_bumper = condition;
+				break;
+			case 7: m_rust = condition;
+				break;
+			}
+		}
+		else if (option == 8)
+		{
+			m_hasExtremeDamage = true;
+			return;
+		}
+	} while (option != 0);
+}

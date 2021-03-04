@@ -17,6 +17,7 @@ public:
 	int get_flatTire() { return m_flatTire; }
 	int get_alignment() { return m_alignment; }
 	bool get_hasExtremeDamage() { return m_hasExtremeDamage; }
+	
 	void set_brakePad(bool value) { m_brakePad = value; }
 	void set_brakeDisc(bool value) { m_brakeDisc = value; }
 	void set_flatTire(bool value) { m_flatTire = value; }
@@ -30,5 +31,7 @@ public:
 	void wear();
 	float getRepairCost(const AutoShop& shop, bool isFrontWheel);
 	std::string diagnose();
+
+	void menu();
 };
 

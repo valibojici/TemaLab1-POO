@@ -22,4 +22,6 @@ public:
 	void wear();
 	float getRepairCost(const AutoShop& shop);
 	std::string diagnose();
+
+	void menu();
 };
