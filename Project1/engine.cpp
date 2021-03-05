@@ -37,6 +37,7 @@ float Engine::getRepairCost(const AutoShop& shop)
 	float cost = 0;
 	if (m_engineIsMelted)
 	{
+		cost += shop.get_manHourCost() * 2.5f;
 		cost += shop.get_oilCost() * 2;
 		cost += shop.get_screwCost() * 20;
 		cost += shop.get_rivetCost() * 10;
@@ -46,12 +47,14 @@ float Engine::getRepairCost(const AutoShop& shop)
 
 	if (m_lowOilLevel)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += shop.get_oilCost();
 		cost += shop.get_screwCost() * 4;
 	}
 
 	if (m_batteryIsDischarghed)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += shop.get_aluminiumCost() * 3;
 		cost += shop.get_screwCost() * 10;
 		cost += shop.get_wireCost() * 5;
@@ -59,11 +62,12 @@ float Engine::getRepairCost(const AutoShop& shop)
 
 	if (m_isDirty)
 	{
+		cost += shop.get_manHourCost() * 1.5f;
 		cost += shop.get_cleaningProductsCost() * 2;
 		cost += shop.get_screwCost() * 6;
 		cost += shop.get_lubricantCost() * 2;
 	}
-	return round(cost * 100) / 100;
+	return round(cost * 100.0f) / 100;
 }
 
 void Engine::wear()

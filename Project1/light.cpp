@@ -7,11 +7,13 @@ float Light::getRepairCost(const AutoShop& shop)
 	float cost = 0;
 	if (m_isBroken)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += shop.get_lightbulbCost();
 		cost += shop.get_screwCost() * 8;
 	}
 	if (m_isDisconnected)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += shop.get_wireCost() * 4;
 		cost += shop.get_screwCost() * 5;
 	}

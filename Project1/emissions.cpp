@@ -6,12 +6,14 @@ float Emissions::getRepairCost(const AutoShop& shop)
 	float cost = 0;
 	if (m_isBurningOil)
 	{
+		cost += shop.get_manHourCost() * 1.5f;
 		cost += m_isBurningOil * shop.get_oilCost();
 		cost += shop.get_screwCost() * 10;
 		cost += shop.get_rivetCost() * 5;
 	}
 	if (m_isMadeBefore2000)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += m_isMadeBefore2000 * shop.get_emissionSensorCost();
 		cost += shop.get_screwCost() * 12;
 		cost += shop.get_aluminiumCost() * 5;

@@ -48,6 +48,7 @@ float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel)
 	float cost = 0;
 	if (m_brakePad)
 	{
+		cost += shop.get_manHourCost() * 1;
 		cost += isFrontWheel * shop.get_brakePadFrontCost();
 		cost += !isFrontWheel * shop.get_brakePadRearCost();
 		cost += shop.get_screwCost() * 10;
@@ -56,6 +57,7 @@ float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel)
 	}
 	if (m_brakeDisc)
 	{
+		cost += shop.get_manHourCost() * 1;
 		cost += shop.get_brakeDiscCost();
 		cost += shop.get_screwCost() * 10;
 		cost += shop.get_rivetCost() * 5;
@@ -63,16 +65,18 @@ float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel)
 	}
 	if (m_flatTire)
 	{
+		cost += shop.get_manHourCost() * 0.2f;
 		cost += shop.get_tireCost() * m_flatTire;
 		cost += shop.get_screwCost() * 5;
 	}
 	if (m_alignment)
 	{
+		cost += shop.get_manHourCost() * 1;
 		cost += m_alignment * shop.get_wheelAlignmentCost();
 		cost += shop.get_screwCost() * 10;
 		cost += shop.get_lubricantCost();
 	}
-	return round(cost * 100.0) / 100;
+	return round(cost * 100.0f) / 100;
 }
 
 void Wheel::wear()

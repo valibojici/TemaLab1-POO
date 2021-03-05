@@ -27,10 +27,12 @@ float Handlebars::getRepairCost(const AutoShop& shop)
 	float cost = 0;
 	if (m_isShaking)
 	{
+		cost += shop.get_manHourCost() * 1;
 		cost += shop.get_screwCost() * 10 + shop.get_steelCost() * 5;
 	}
 	if (m_alignment)
 	{
+		cost += shop.get_manHourCost() * 1;
 		cost += shop.get_aluminiumCost() * 4 + shop.get_screwCost() * 5;
 	}
 	return round(cost * 100) / 100;

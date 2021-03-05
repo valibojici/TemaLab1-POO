@@ -24,11 +24,13 @@ float Chain::getRepairCost(const AutoShop& shop, bool isBicycle)
 	float cost = 0;
 	if (m_isWornOut || m_isMissing)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += isBicycle * shop.get_bikeChainCost() + !isBicycle * shop.get_motoChainCost();
 		cost += shop.get_lubricantCost();
 	}
 	else if (m_isBroken)
 	{
+		cost += shop.get_manHourCost() * 0.5f;
 		cost += shop.get_rivetCost() * 5 + shop.get_screwCost() * 10;
 		cost += shop.get_lubricantCost();
 	}
