@@ -4,7 +4,6 @@
 class AutoShop;
 
 class Wheel {
-	friend AutoShop;
 private:
 	bool m_brakePad;
 	bool m_brakeDisc;

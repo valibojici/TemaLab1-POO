@@ -8,6 +8,8 @@
 #include "light.h"
 #include "body.h"
  
+class AutoShop;
+
 class Car {
 private:
 	Engine m_engine;
