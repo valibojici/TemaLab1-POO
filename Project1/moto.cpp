@@ -58,77 +58,73 @@ void Moto::menu()
 
 std::ostream& operator<< (std::ostream& out, const Moto& moto)
 {
-	bool ok = true;
-
 	float cost = 0;
+	float total = 0;
 
 	cost = moto.get_engine().getRepairCost(*moto.m_shop);
-	if(cost)
+	total += cost;
+	if(cost || moto.get_engine().get_hasExtremeDamage())
 	{
-		ok = false;
 		out << "-> Engine: " << cost << " $\n";
 		out << moto.get_engine().diagnose() << '\n';
 	}
 
 	cost = moto.get_headLight().getRepairCost(*moto.m_shop);
+	total += cost;
 	if (cost)
 	{
-		ok = false;
 		out << "-> Head light: " << cost << " $\n";
 		out << moto.get_headLight().diagnose() << '\n';
 	}
 
 	cost = moto.get_brakeLight().getRepairCost(*moto.m_shop);
+	total += cost;
 	if (cost)
 	{
-		ok = false;
 		out << "-> Brake light: " << cost << " $\n";
 		out << moto.get_brakeLight().diagnose() << '\n';
 	}
 
 	cost = moto.get_wheelFront().getRepairCost(*moto.m_shop, true);
-	if (cost)
+	total += cost;
+	if (cost || moto.get_wheelFront().get_hasExtremeDamage())
 	{
-		ok = false;
 		out << "-> Front wheel: " << cost << " $\n";
 		out << moto.get_wheelFront().diagnose() << '\n';
 	}
 
 	cost = moto.get_wheelRear().getRepairCost(*moto.m_shop, false);
-	if (cost)
+	total += cost;
+	if (cost || moto.get_wheelRear().get_hasExtremeDamage())
 	{
-		ok = false;
 		out << "-> Rear wheel: " << cost << " $\n";
 		out << moto.get_wheelRear().diagnose() << '\n';
 	}
 
 	cost = moto.get_handlebars().getRepairCost(*moto.m_shop);
+	total += cost;
 	if (cost)
 	{
-		ok = false;
 		out << "-> Handlebars: " << cost << " $\n";
 		out << moto.get_handlebars().diagnose() << '\n';
 	}
 
 	cost = moto.get_chain().getRepairCost(*moto.m_shop, false);
+	total += cost;
 	if (cost)
 	{
-		ok = false;
 		out << "-> Chain: " << cost << " $\n";
 		out << moto.get_chain().diagnose() << '\n';
 	}
 
 	cost = moto.get_emissions().getRepairCost(*moto.m_shop);
+	total += cost;
 	if (cost)
 	{
-		ok = false;
 		out << "-> Emissions: " << cost << " $\n";
 		out << moto.get_emissions().diagnose() << '\n';
 	}
 
-	if (ok)
-	{
-		out << "No problems\n";
-	}
+	out << "\nTOTAL: " << total << " $\n";
 	return out;
 }

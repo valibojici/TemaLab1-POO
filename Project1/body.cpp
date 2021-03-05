@@ -7,7 +7,7 @@ std::string Body::diagnose()
 {
 	if (m_hasExtremeDamage)
 	{
-		return "Extreme Damage";
+		return "Destroyed";
 	}
 
 	std::string diagnostic = "";
@@ -142,7 +142,6 @@ void Body::menu()
 		else if (option == 8)
 		{
 			m_hasExtremeDamage = true;
-			return;
 		}
 	} while (option != 0);
 }

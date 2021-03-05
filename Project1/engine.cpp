@@ -93,7 +93,6 @@ void Engine::menu()
 		case 4: m_batteryIsDischarghed = true;
 			break;
 		case 5: m_hasExtremeDamage = true;
-			return;
 			break;
 		}
 	} while (option != 0);

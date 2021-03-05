@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 
 	cost = bike.get_wheelFront().getRepairCost(*bike.m_shop, true);
 	total += cost;
-	if (cost)
+	if (cost || bike.get_wheelFront().get_hasExtremeDamage())
 	{
 		out << "-> Front wheel: " << cost << " $\n";
 		out << bike.get_wheelFront().diagnose() << '\n';
@@ -62,7 +62,7 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 
 	cost = bike.get_wheelRear().getRepairCost(*bike.m_shop, false);
 	total += cost;
-	if (cost)
+	if (cost || bike.get_wheelRear().get_hasExtremeDamage())
 	{
 		out << "-> Rear wheel: " << cost << " $\n";
 		out << bike.get_wheelRear().diagnose() << '\n';
@@ -84,13 +84,6 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 		out << bike.get_chain().diagnose() << '\n';
 	}
  
-	if (total == 0)
-	{
-		out << "No problems\n";
-	}
-	else
-	{
-		out << "TOTAL : " << total << " $\n";
-	}
+	out << "\nTOTAL: " << total << " $\n";
 	return out;
 }

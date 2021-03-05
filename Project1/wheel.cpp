@@ -5,7 +5,7 @@ std::string Wheel::diagnose()
 {
 	if (m_hasExtremeDamage)
 	{
-		return std::string("Extreme Damage");
+		return std::string("Destroyed");
 	}
 
 	std::string diagnostic = "";
@@ -88,7 +88,7 @@ void Wheel::menu()
 {
 	int option = 0;
 	do {
-		std::cout << "	Wheel Menu:\n - 1. Damage Brake Pad\n - 2. Damage Brake Disc\n - 3. Damage Tire\n - 4. Wheel alignment\n - 0. Back\n";
+		std::cout << "	Wheel Menu:\n - 1. Damage Brake Pad\n - 2. Damage Brake Disc\n - 3. Damage Tire\n - 4. Wheel alignment\n - 5. Destroy wheel\n - 0. Back\n";
 		std::cin >> option;
 		if (option == 4)
 		{
@@ -108,6 +108,8 @@ void Wheel::menu()
 			case 2: m_brakeDisc = true;
 				break;
 			case 3: m_flatTire = true;
+				break;
+			case 5: m_hasExtremeDamage = true;
 				break;
 			}
 		}
