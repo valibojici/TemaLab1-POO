@@ -1,47 +1,76 @@
 #include "body.h"
 #include "autoshop.h"
 
+Body::Body(unsigned wingFR, unsigned wingFL, unsigned wingRL, unsigned wingRR, unsigned bumper, unsigned hood, unsigned rust, bool extremeDamage) :
+	m_wingFrontRight(wingFR),
+	m_wingFrontLeft(wingFL),
+	m_wingRearLeft(wingRL),
+	m_wingRearRight(wingRR),
+	m_bumper(bumper),
+	m_hood(hood),
+	m_rust(rust),
+	m_hasExtremeDamage(extremeDamage) {}
 
-
-std::string Body::diagnose()
+void Body::set_wingFrontLeft(unsigned value)
 {
-	if (m_hasExtremeDamage)
+	m_wingFrontLeft = value > 3 ? 3 : value;
+}
+
+void Body::set_wingFrontRight(unsigned value)
+{
+	m_wingFrontRight = value > 3 ? 3 : value;
+}
+
+void Body::set_wingRearLeft(unsigned value)
+{
+	m_wingRearLeft = value > 3 ? 3 : value;
+}
+
+void Body::set_wingRearRight(unsigned value)
+{ 
+	m_wingRearRight = value > 3 ? 3 : value;
+}
+
+void Body::set_bumper(unsigned value)
+{ 
+	m_bumper = value > 3 ? 3 : value;;
+}
+
+void Body::set_hood(unsigned value) 
+{
+	m_hood = value > 3 ? 3 : value;;
+}
+
+void Body::set_rust(unsigned value) 
+{ 
+	m_rust = value > 3 ? 3 : value;;
+}
+
+std::ostream& operator<<(std::ostream& out, const Body& body)
+{
+	if (body.m_hasExtremeDamage)
 	{
-		return "Destroyed";
+		out << "Destroyed";
+		return out;
 	}
 
-	std::string diagnostic = "";
 	std::string prefix[] = { "", "slight", "medium", "major" };
 
-	if (m_wingFrontLeft)
-	{
-		diagnostic += prefix[m_wingFrontLeft] + " dent front left wing; ";
-	}
-	if (m_wingFrontRight)
-	{
-		diagnostic += prefix[m_wingFrontRight] + " dent front right wing; ";
-	}
-	if (m_wingRearLeft)
-	{
-		diagnostic += prefix[m_wingRearLeft] + " dent rear left wing; ";
-	}
-	if (m_wingRearRight)
-	{
-		diagnostic += prefix[m_wingRearRight] + " dent rear right wing; ";
-	}
-	if (m_bumper)
-	{
-		diagnostic += prefix[m_bumper] + " dent bumper; ";
-	}
-	if (m_hood)
-	{
-		diagnostic += prefix[m_hood] + " dent hood; ";
-	}
-	if (m_rust)
-	{
-		diagnostic += prefix[m_rust] + " rust problem; ";
-	}
-	return diagnostic == "" ? "No problems" : diagnostic;
+	out << (body.m_wingFrontLeft ? prefix[body.m_wingFrontLeft] + " dent front left wing; " : "");
+
+	out << (body.m_wingFrontRight ? prefix[body.m_wingFrontRight] + " dent front right wing; " : "");
+
+	out << (body.m_wingRearLeft ? prefix[body.m_wingRearLeft] + " dent rear left wing; " : "");
+
+	out << (body.m_wingRearRight ? prefix[body.m_wingRearRight] + " dent rear right wing; " : "");
+
+	out << (body.m_bumper ? prefix[body.m_bumper] + " dent bumper; " : "");
+
+	out << (body.m_hood ? prefix[body.m_hood] + " dent hood; " : "");
+
+	out << (body.m_rust ? prefix[body.m_rust] + " rust problem; " : "");
+ 
+	return out;
 }
 
 float Body::getRepairCost(const AutoShop& shop)
@@ -120,33 +149,31 @@ void Body::menu()
 		std::cin >> option;
 		if (option >= 1 && option <= 7)
 		{
-			int condition = 0;
+			unsigned condition = 0;
 			std::cout << "Enter condition 0(perfect) - 3(very bad): ";
 			std::cin >> condition;
-			condition = std::min(3, condition);
-			condition = std::max(0, condition);
 
 			switch (option)
 			{
-			case 1: m_wingFrontLeft = condition;
+			case 1:this->set_wingFrontLeft(condition);
 				break;
-			case 2: m_wingFrontRight = condition;
+			case 2: this->set_wingFrontRight(condition);
 				break;
-			case 3: m_wingRearLeft = condition;
+			case 3: this->set_wingRearLeft(condition);
 				break;
-			case 4: m_wingRearRight = condition;
+			case 4: this->set_wingRearRight(condition);
 				break;
-			case 5: m_hood = condition;
+			case 5: this->set_hood(condition);
 				break;
-			case 6: m_bumper = condition;
+			case 6: this->set_bumper(condition);
 				break;
-			case 7: m_rust = condition;
+			case 7: this->set_rust(condition);
 				break;
 			}
 		}
 		else if (option == 8)
 		{
-			m_hasExtremeDamage = true;
+			this->set_hasExtremeDamage(true);
 		}
 	} while (option != 0);
 }

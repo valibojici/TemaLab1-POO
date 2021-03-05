@@ -6,6 +6,7 @@
 #include "wheel.h"
 #include "handlebars.h"
 
+class AutoShop;
 
 class Bike
 {
@@ -20,6 +21,7 @@ public:
 	void set_wheelRear(Wheel wheel) { m_wheelRear = wheel; }
 	void set_chain(Chain chain) { m_chain = chain; }
 	void set_handlebars(Handlebars handle) { m_handlebars = handle; }
+	void set_shop(const AutoShop& shop) { m_shop = &shop; }
 
 	Wheel get_wheelFront() const {return m_wheelFront; }
 	Wheel get_wheelRear() const {return m_wheelRear; }

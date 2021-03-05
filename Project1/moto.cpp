@@ -1,6 +1,5 @@
 #include "moto.h"
 
-// general
 void Moto::wear()
 {
 	m_engine.wear();
@@ -61,68 +60,68 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 	float cost = 0;
 	float total = 0;
 
+	// engine
 	cost = moto.get_engine().getRepairCost(*moto.m_shop);
 	total += cost;
 	if(cost || moto.get_engine().get_hasExtremeDamage())
 	{
-		out << "-> Engine: " << cost << " $\n";
-		out << moto.get_engine().diagnose() << '\n';
+		out << "-> Engine: " << cost << " $\n" << moto.get_engine() << "\n\n";
 	}
 
+	// headlight
 	cost = moto.get_headLight().getRepairCost(*moto.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Head light: " << cost << " $\n";
-		out << moto.get_headLight().diagnose() << '\n';
+		out << "-> Head light: " << cost << " $\n" << moto.get_headLight() << "\n\n";
 	}
 
+	// brakelight
 	cost = moto.get_brakeLight().getRepairCost(*moto.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Brake light: " << cost << " $\n";
-		out << moto.get_brakeLight().diagnose() << '\n';
+		out << "-> Brake light: " << cost << " $\n" << moto.get_brakeLight() << "\n\n";
 	}
 
+	// front wheel
 	cost = moto.get_wheelFront().getRepairCost(*moto.m_shop, true);
 	total += cost;
 	if (cost || moto.get_wheelFront().get_hasExtremeDamage())
 	{
-		out << "-> Front wheel: " << cost << " $\n";
-		out << moto.get_wheelFront().diagnose() << '\n';
+		out << "-> Front wheel: " << cost << " $\n" << moto.get_wheelFront() << "\n\n";
 	}
 
+	// rear wheel
 	cost = moto.get_wheelRear().getRepairCost(*moto.m_shop, false);
 	total += cost;
 	if (cost || moto.get_wheelRear().get_hasExtremeDamage())
 	{
-		out << "-> Rear wheel: " << cost << " $\n";
-		out << moto.get_wheelRear().diagnose() << '\n';
+		out << "-> Rear wheel: " << cost << " $\n" << moto.get_wheelRear() << "\n\n";
 	}
 
+	// handlebars
 	cost = moto.get_handlebars().getRepairCost(*moto.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Handlebars: " << cost << " $\n";
-		out << moto.get_handlebars().diagnose() << '\n';
+		out << "-> Handlebars: " << cost << " $\n" << moto.get_handlebars() << "\n\n";
 	}
 
+	// chain
 	cost = moto.get_chain().getRepairCost(*moto.m_shop, false);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Chain: " << cost << " $\n";
-		out << moto.get_chain().diagnose() << '\n';
+		out << "-> Chain: " << cost << " $\n" << moto.get_chain() << "\n\n";
 	}
 
+	// emissions
 	cost = moto.get_emissions().getRepairCost(*moto.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Emissions: " << cost << " $\n";
-		out << moto.get_emissions().diagnose() << '\n';
+		out << "-> Emissions: " << cost << " $\n" << moto.get_emissions() << "\n\n";
 	}
 
 	out << "\nTOTAL: " << total << " $\n";

@@ -33,6 +33,7 @@ public:
 	void set_chain(Chain chain) { m_chain = chain; }
 	void set_handlebars(Handlebars handle) { m_handlebars = handle; }
 	void set_emissions(Emissions emissions) { m_emissions = emissions; }
+	void set_shop(const AutoShop& shop) { m_shop = &shop; }
 
 	Engine get_engine() const {return m_engine; }
 	Light get_headLight() const {return m_headLight; }

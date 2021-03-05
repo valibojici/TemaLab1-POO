@@ -33,7 +33,7 @@ private:
 	Moto m_moto;
 
 public:
-	AutoShop() { m_car.set_shop(*this); }
+	AutoShop();
 
 	void set_manHourCost(int value) { m_manHourCost = value; }
 	void set_brakePadFrontCost(int value) { m_brakePadFrontCost = value; }
@@ -56,9 +56,9 @@ public:
 	void set_lightbulbCost(int value) { m_lightbulbCost = value; }
 	void set_emissionSensorCost(int value) { m_emissionSensorCost = value; }
 
-	void set_car(Car car) { m_car = car; }
-	void set_bike(Bike bike) { m_bike = bike; }
-	void set_moto(Moto moto) { m_moto = moto; }
+	void set_car(const Car& car) { m_car = car; }
+	void set_bike(const Bike& bike) { m_bike = bike; }
+	void set_moto(const Moto& moto) { m_moto = moto; }
 
 	int get_manHourCost() const { return m_manHourCost; }
 	int get_brakePadFrontCost() const { return m_brakePadFrontCost; }
@@ -86,5 +86,4 @@ public:
 	Moto get_moto() const { return m_moto; }
 
 	void mainMenu();
-
 };

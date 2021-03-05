@@ -1,22 +1,28 @@
 #include "chain.h"
 #include "autoshop.h"
 
-std::string Chain::diagnose()
+Chain::Chain(bool isBroken, bool isWornOut, bool isMissing):
+	m_isBroken(isBroken),
+	m_isWornOut(isWornOut),
+	m_isMissing(isMissing) {}
+
+
+
+std::ostream& operator<<(std::ostream& out, const Chain& chain)
 {
-	if (m_isMissing)
+	if (chain.m_isMissing)
 	{
-		return "missing chain";
+		out << "missing chain";
+		return out;
 	}
-	std::string diagnose = "chain";
-	if (m_isBroken)
+
+	if (chain.m_isBroken || chain.m_isWornOut)
 	{
-		diagnose = "broken " + diagnose;
+		out << (chain.m_isBroken ? "broken " : "");
+		out << (chain.m_isWornOut ? "worn out " : "");
+		out << "chain";
 	}
-	if (m_isWornOut)
-	{
-		diagnose = "worn out " + diagnose;
-	}
-	return diagnose == "chain" ? "No problems" : diagnose;
+	return out;
 }
 
 float Chain::getRepairCost(const AutoShop& shop, bool isBicycle)
@@ -34,6 +40,7 @@ float Chain::getRepairCost(const AutoShop& shop, bool isBicycle)
 		cost += shop.get_rivetCost() * 5 + shop.get_screwCost() * 10;
 		cost += shop.get_lubricantCost();
 	}
+
 	return round(cost * 100) / 100;
 }
 
@@ -54,14 +61,11 @@ void Chain::menu()
 		std::cin >> option;
 		switch (option)
 		{
-		case 1:
-			m_isBroken = true;
+		case 1: this->set_isBroken(true);
 			break;
-		case 2:
-			m_isWornOut = true;
+		case 2: this->set_isWornOut(true);
 			break;
-		case 3:
-			m_isMissing = true;
+		case 3: this->set_isMissing(true);
 			break;
 		}
 	} while (option != 0);

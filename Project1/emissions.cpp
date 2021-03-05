@@ -21,18 +21,11 @@ float Emissions::getRepairCost(const AutoShop& shop)
 	return round(cost * 100) / 100;
 }
 
-std::string Emissions::diagnose()
+std::ostream& operator<<(std::ostream& out, const Emissions& em)
 {
-	std::string diagnostic = "";
-	if (m_isBurningOil)
-	{
-		diagnostic += "is burning oil; ";
-	}
-	if (m_isMadeBefore2000)
-	{
-		diagnostic += "is made before 2000; ";
-	}
-	return diagnostic == "" ? "No problems" : diagnostic;
+	out << (em.m_isBurningOil ? "is burning oil; " : "");
+	out << (em.m_isMadeBefore2000 ? "is made before 2000; " : "");
+	return out;
 }
 
 
@@ -50,9 +43,9 @@ void Emissions::menu()
 		std::cin >> option;
 		switch (option)
 		{
-		case 1: m_isBurningOil = true;
+		case 1: this->set_isBurningOil(true);
 			break;
-		case 2: m_isMadeBefore2000 = true;
+		case 2: this->set_isMadeBefore2000(true);
 			break;
 		}
 	} while (option != 0);

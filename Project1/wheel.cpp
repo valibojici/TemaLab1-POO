@@ -1,42 +1,37 @@
 #include "wheel.h"
 #include "autoshop.h"
 
-std::string Wheel::diagnose()
-{
-	if (m_hasExtremeDamage)
-	{
-		return std::string("Destroyed");
-	}
+Wheel::Wheel(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment, bool extremeDamage): 
+	m_brakePad(brakePad), 
+	m_brakeDisc(brakeDisc), 
+	m_flatTire(m_flatTire),
+	m_alignment(alignment),
+	m_hasExtremeDamage(extremeDamage) {}
 
-	std::string diagnostic = "";
-	if (m_brakeDisc)
+
+void Wheel::set_alignment(unsigned value)
+{
+	m_alignment = value > 3 ? 3 : value;
+}
+
+std::ostream& operator<<(std::ostream& out, const Wheel& w)
+{
+	if (w.m_hasExtremeDamage)
 	{
-		diagnostic += "damaged brake disc; ";
+		out << "Destroyed";
+		return out;
 	}
-	if (m_brakePad)
-	{
-		diagnostic += "damaged brake pad; ";
-	}
-	if (m_flatTire)
-	{
-		diagnostic += "flat tire; ";
-	}
-	if (m_alignment > 0)
-	{
-		if (m_alignment == 1)
-		{
-			diagnostic += "slight misalignment; ";
-		}
-		else if (m_alignment == 2)
-		{
-			diagnostic += "medium misalignment; ";
-		}
-		else
-		{
-			diagnostic += "major misalignment; ";
-		}
-	}
-	return diagnostic == "" ? "No problems" : diagnostic;
+	std::string prefix[] = { "", "slight", "medium", "major" };
+
+	out << (w.m_brakeDisc ? "damaged brake disc; " : "");
+	
+	out << (w.m_brakePad ? "damaged brake pad; " : "");
+	
+	out << (w.m_flatTire ? "flat tire; " : "");
+	
+	out << (w.m_alignment ? prefix[w.m_alignment] + " misaligment; " : "");
+
+	return out;
 }
 
 float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel)
@@ -96,24 +91,22 @@ void Wheel::menu()
 		std::cin >> option;
 		if (option == 4)
 		{
-			int align = 0;
+			unsigned value = 0;
 			std::cout << "Enter alignment value (0 aligned - 3 major misalignment): ";
-			std::cin >> align;
-			align = std::min(align, 3);
-			align = std::max(0, align);
-			m_alignment = align;
+			std::cin >> value;
+			this->set_alignment(value);
 		}
 		else
 		{
 			switch (option)
 			{
-			case 1: m_brakePad = true;
+			case 1: this->set_brakePad(true);
 				break;
-			case 2: m_brakeDisc = true;
+			case 2: this->set_brakeDisc(true);
 				break;
-			case 3: m_flatTire = true;
+			case 3: this->set_flatTire(true);
 				break;
-			case 5: m_hasExtremeDamage = true;
+			case 5: this->set_hasExtremeDamage(true);
 				break;
 			}
 		}

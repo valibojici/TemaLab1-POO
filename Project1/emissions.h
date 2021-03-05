@@ -21,7 +21,8 @@ public:
 
 	void wear();
 	float getRepairCost(const AutoShop& shop);
-	std::string diagnose();
+	
+	friend std::ostream& operator<<(std::ostream& out, const Emissions& em);
 
 	void menu();
 };

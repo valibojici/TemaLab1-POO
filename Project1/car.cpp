@@ -72,92 +72,92 @@ std::ostream& operator<<(std::ostream& out,const Car& car)
 	float total = 0;
 	float cost = 0;
 	
+	// engine
 	cost = car.get_engine().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost || car.get_engine().get_hasExtremeDamage())
 	{
-		out << "-> Engine: " << cost << " $\n";
-		out << car.get_engine().diagnose() << '\n';
+		out << "-> Engine: " << cost << " $\n" << car.get_engine() << "\n\n";
 	}
 
+	// front left headlight
 	cost = car.get_headlightFL().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Front Left Headlight: " << cost << " $\n";
-		out << car.get_headlightFL().diagnose() << '\n';
+		out << "-> Front Left Headlight: " << cost << " $\n" << car.get_headlightFL() << "\n\n";
 	}
 	
+	// front right headlight
 	cost = car.get_headlightFR().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Front Right Headlight: " << cost << " $\n";
-		out << car.get_headlightFR().diagnose() << '\n';
+		out << "-> Front Right Headlight: " << cost << " $\n" << car.get_headlightFR() << "\n\n";
 	}
 
+	// rear left brakelight
 	cost = car.get_brakelightRL().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Rear Left Brakelight: " << cost << " $\n";
-		out << car.get_brakelightRL().diagnose() << '\n';
+		out << "-> Rear Left Brakelight: " << cost << " $\n" << car.get_brakelightRL() << "\n\n";
 	}
 
+	// rear right brakelight
 	cost = car.get_brakelightRR().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Rear Right Brakelight: " << cost << " $\n";
-		out << car.get_brakelightRR().diagnose() << '\n';
+		out << "-> Rear Right Brakelight: " << cost << " $\n" << car.get_brakelightRR() << "\n\n";
 	}
 	
+	// body
 	cost = car.get_body().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Body: " << cost << " $\n";
-		out << car.get_body().diagnose() << '\n';
+		out << "-> Body: " << cost << " $\n" << car.get_body() << "\n\n";
 	}
 
+	// front left wheel
 	cost = car.get_wheelFL().getRepairCost(*car.m_shop,true);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Front Left Wheel: " << cost << " $\n";
-		out << car.get_wheelFL().diagnose() << '\n';
+		out << "-> Front Left Wheel: " << cost << " $\n" << car.get_wheelFL() << "\n\n";
 	}
 
+	// front right wheel
 	cost = car.get_wheelFR().getRepairCost(*car.m_shop, true);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Front Right Wheel: " << cost << " $\n";
-		out << car.get_wheelFR().diagnose() << '\n';
+		out << "-> Front Right Wheel: " << cost << " $\n" << car.get_wheelFR() << "\n\n";
 	}
 
+	// rear left wheel
 	cost = car.get_wheelRL().getRepairCost(*car.m_shop, true);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Rear Left Wheel: " << cost << " $\n";
-		out << car.get_wheelRL().diagnose() << '\n';
+		out << "-> Rear Left Wheel: " << cost << " $\n" << car.get_wheelRL() << "\n\n";
 	}
 
+	// rear right wheel
 	cost = car.get_wheelRR().getRepairCost(*car.m_shop, true);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Rear Right Wheel: " << cost << " $\n";
-		out << car.get_wheelRR().diagnose() << '\n';
+		out << "-> Rear Right Wheel: " << cost << " $\n" << car.get_wheelRR() << "\n\n";
 	}
 
+	// emissions
 	cost = car.get_emissions().getRepairCost(*car.m_shop);
 	total += cost;
 	if (cost)
 	{
-		out << "-> Emissions: " << cost << " $\n";
-		out << car.get_emissions().diagnose() << '\n';
+		out << "-> Emissions: " << cost << " $\n" << car.get_emissions() << "\n\n";
 	}
 	
 	out << "\nTOTAL: " << total << " $\n";

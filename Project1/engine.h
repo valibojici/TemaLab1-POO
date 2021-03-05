@@ -27,13 +27,12 @@ public:
 	void set_hasExtremeDamage(bool value) { m_hasExtremeDamage = value; }
 
 	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0), m_hasExtremeDamage(0) {}
-	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage)
-		: m_lowOilLevel(lowOilLevel), m_engineIsMelted(engineIsMelted), m_isDirty(isDirty), m_hasExtremeDamage(extremeDamage),
-		m_batteryIsDischarghed(batteryIsDischarged) {}
+	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage = 0);
 
 	void wear();
 	float getRepairCost(const AutoShop& shop);
-	std::string diagnose();
+	
+	friend std::ostream& operator<< (std::ostream& out, const Engine& eng);
 
 	void menu();
 };

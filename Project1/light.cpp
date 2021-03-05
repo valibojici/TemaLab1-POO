@@ -20,18 +20,15 @@ float Light::getRepairCost(const AutoShop& shop)
 	return float(cost * 100) / 100;
 }
 
-std::string Light::diagnose()
+std::ostream& operator<< (std::ostream& out, const Light& light)
 {
-	std::string diagnostic = "lamp";
-	if (m_isBroken)
+	if (light.m_isBroken || light.m_isDisconnected)
 	{
-		diagnostic = "broken " + diagnostic;
+		out << (light.m_isBroken ? "broken " : "");
+		out << (light.m_isDisconnected ? "disconnected " : "");
+		out << "lamp";
 	}
-	if (m_isDisconnected)
-	{
-		diagnostic = "disconnected " + diagnostic;
-	}
-	return diagnostic == "lamp" ? "No problems" : diagnostic;
+	return out;
 }
 
 void Light::wear() {
@@ -48,9 +45,9 @@ void Light::menu()
 		std::cin >> option;
 		switch (option)
 		{
-		case 1: m_isBroken = true;
+		case 1: this->set_isBroken(true);
 			break;
-		case 2: m_isDisconnected = true;
+		case 2: this->set_isDisconnected(true);
 			break;
 		}
 	} while (option != 0);

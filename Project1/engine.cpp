@@ -2,30 +2,31 @@
 #include "autoshop.h"
 
 
-std::string Engine::diagnose()
+Engine::Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage):
+	m_lowOilLevel(lowOilLevel),
+	m_engineIsMelted(engineIsMelted),
+	m_isDirty(isDirty),
+	m_hasExtremeDamage(extremeDamage),
+	m_batteryIsDischarghed(batteryIsDischarged) {}
+
+
+std::ostream& operator<<(std::ostream& out, const Engine& en)
 {
-	if (m_hasExtremeDamage)
+	if (en.m_hasExtremeDamage)
 	{
-		return "Destroyed";
+		out << "Destroyed";
+		return out;
 	}
-	std::string diagnostic = "";
-	if (m_lowOilLevel)
-	{
-		diagnostic += "low oil level; ";
-	}
-	if (m_engineIsMelted)
-	{
-		diagnostic += "engine is melted; ";
-	}
-	if (m_isDirty)
-	{
-		diagnostic += "engine is dirty; ";
-	}
-	if (m_batteryIsDischarghed)
-	{
-		diagnostic += "discharged battery; ";
-	}
-	return diagnostic == "" ? "No problems" : diagnostic;
+
+	out << (en.m_lowOilLevel ? "low oil level; " : "");
+
+	out << (en.m_engineIsMelted ? "engine is melted; " : "");
+
+	out << (en.m_isDirty ? "engine is dirty; " : "");
+
+	out << (en.m_batteryIsDischarghed ? "discharged battery; " : "");
+
+	return out;
 }
 
 float Engine::getRepairCost(const AutoShop& shop)
@@ -88,15 +89,15 @@ void Engine::menu()
 		std::cin >> option;
 		switch (option)
 		{
-		case 1: m_lowOilLevel = true;
+		case 1: this->set_lowOilLevel(true);
 			break;
-		case 2: m_engineIsMelted = true;
+		case 2: this->set_engineIsMelted(true);
 			break;
-		case 3: m_isDirty = true;
+		case 3: this->set_isDirty(true);
 			break;
-		case 4: m_batteryIsDischarghed = true;
+		case 4: this->set_batteryIsDischarghed(true);
 			break;
-		case 5: m_hasExtremeDamage = true;
+		case 5: this->set_hasExtremeDamage(true);
 			break;
 		}
 	} while (option != 0);

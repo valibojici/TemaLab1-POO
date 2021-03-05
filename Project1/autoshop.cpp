@@ -1,5 +1,12 @@
 #include "autoshop.h"
 
+AutoShop::AutoShop()
+{
+	m_car.set_shop(*this);
+	m_moto.set_shop(*this);
+	m_bike.set_shop(*this);
+}
+
 void AutoShop::mainMenu()
 {
 	int option = 0;

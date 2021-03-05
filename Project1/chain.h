@@ -19,12 +19,13 @@ public:
 	void set_isMissing(bool value) { m_isMissing = value; }
 
 	Chain() : m_isBroken(0), m_isWornOut(0), m_isMissing(0) {}
-	Chain(bool isBroken, bool isWornOut, bool isMissing)
-		: m_isBroken(isBroken), m_isWornOut(isWornOut), m_isMissing(isMissing) {}
+	Chain(bool isBroken, bool isWornOut, bool isMissing);
 
 	void wear();
+
 	float getRepairCost(const AutoShop& shop, bool isBicycle);
-	std::string diagnose();
+	
+	friend std::ostream& operator<<(std::ostream& out, const Chain& chain);
 
 	void menu();
 };
