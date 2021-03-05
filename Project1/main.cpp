@@ -11,7 +11,7 @@ int main()
 
 	AutoShop a;
 	
-
+	a.set_manHourCost(50);
 	a.set_brakePadFrontCost(100);
 	a.set_brakePadRearCost(50);
 	a.set_brakeDiscCost(100);
@@ -34,5 +34,4 @@ int main()
 
 	a.mainMenu();
  
-	//std::cout << c;
 }

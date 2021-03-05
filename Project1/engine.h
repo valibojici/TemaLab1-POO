@@ -14,11 +14,11 @@ private:
 
 public:
 
-	bool get_lowOilLevel() { return m_lowOilLevel; }
-	bool get_engineIsMelted() { return m_engineIsMelted; }
-	bool get_isDirty() { return m_isDirty; }
-	bool get_batteryIsDischarghed() { return m_batteryIsDischarghed; }
-	bool get_hasExtremeDamage() { return m_hasExtremeDamage; }
+	bool get_lowOilLevel() const { return m_lowOilLevel; }
+	bool get_engineIsMelted() const { return m_engineIsMelted; }
+	bool get_isDirty() const { return m_isDirty; }
+	bool get_batteryIsDischarghed() const { return m_batteryIsDischarghed; }
+	bool get_hasExtremeDamage() const { return m_hasExtremeDamage; }
 
 	void set_lowOilLevel(bool value) { m_lowOilLevel = value; }
 	void set_engineIsMelted(bool value) { m_engineIsMelted = value; }

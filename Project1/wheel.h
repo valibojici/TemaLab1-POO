@@ -12,11 +12,11 @@ private:
 	bool m_flatTire;
 	int m_alignment; // value from 0 to 3 (0 = perfect condition ; 3 = very poor condition)
 public:
-	bool get_brakePad() { return m_brakePad; }
-	bool get_brakeDisc() { return m_brakeDisc; }
-	int get_flatTire() { return m_flatTire; }
-	int get_alignment() { return m_alignment; }
-	bool get_hasExtremeDamage() { return m_hasExtremeDamage; }
+	bool get_brakePad() const { return m_brakePad; }
+	bool get_brakeDisc() const { return m_brakeDisc; }
+	int get_flatTire() const { return m_flatTire; }
+	int get_alignment() const { return m_alignment; }
+	bool get_hasExtremeDamage() const { return m_hasExtremeDamage; }
 	
 	void set_brakePad(bool value) { m_brakePad = value; }
 	void set_brakeDisc(bool value) { m_brakeDisc = value; }

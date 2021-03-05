@@ -15,8 +15,8 @@ public:
 	void set_isShaking(bool value) { m_isShaking = value; }
 	void set_alignment(int value) { m_alignment = value; }
 
-	bool get_isShaking() { return m_isShaking; }
-	int get_alignment() { return m_alignment; }
+	bool get_isShaking() const { return m_isShaking; }
+	int get_alignment() const { return m_alignment; }
 
 	void wear();
 	std::string diagnose();

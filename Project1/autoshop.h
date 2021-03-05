@@ -7,6 +7,7 @@
 
 class AutoShop {
 private:
+	int m_manHourCost = 0;
 	int m_brakePadFrontCost = 0;
 	int m_brakePadRearCost = 0;
 	int m_brakeDiscCost = 0;
@@ -34,6 +35,7 @@ private:
 public:
 	AutoShop() { m_car.set_shop(*this); }
 
+	void set_manHourCost(int value) { m_manHourCost = value; }
 	void set_brakePadFrontCost(int value) { m_brakePadFrontCost = value; }
 	void set_brakePadRearCost(int value) { m_brakePadRearCost = value; }
 	void set_brakeDiscCost(int value) { m_brakeDiscCost = value; }
@@ -58,7 +60,7 @@ public:
 	void set_bike(Bike bike) { m_bike = bike; }
 	void set_moto(Moto moto) { m_moto = moto; }
 
-
+	int get_manHourCost() const { return m_manHourCost; }
 	int get_brakePadFrontCost() const { return m_brakePadFrontCost; }
 	int get_brakePadRearCost() const { return m_brakePadRearCost; }
 	int get_brakeDiscCost() const { return m_brakeDiscCost; }
@@ -82,8 +84,6 @@ public:
 	Car get_car() const { return m_car; }
 	Bike get_bike() const { return m_bike; }
 	Moto get_moto() const { return m_moto; }
-
-	float getCostCar();
 
 	void mainMenu();
 

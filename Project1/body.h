@@ -18,14 +18,14 @@ private:
 	bool m_hasExtremeDamage;
 
 public:
-	int get_wingFrontLeft() { return m_wingFrontLeft; }
-	int get_wingFrontRight() { return m_wingFrontRight; }
-	int get_wingRearLeft() { return m_wingRearLeft; }
-	int get_wingRearRight() { return m_wingRearRight; }
-	int get_bumper() { return m_bumper; }
-	int get_hood() { return m_hood; }
-	int get_rust() { return m_rust; }
-	bool get_hasExtremeDamage() { return m_hasExtremeDamage; }
+	int get_wingFrontLeft() const  { return m_wingFrontLeft; }
+	int get_wingFrontRight() const { return m_wingFrontRight; }
+	int get_wingRearLeft() const { return m_wingRearLeft; }
+	int get_wingRearRight() const { return m_wingRearRight; }
+	int get_bumper() const { return m_bumper; }
+	int get_hood() const { return m_hood; }
+	int get_rust() const { return m_rust; }
+	bool get_hasExtremeDamage() const { return m_hasExtremeDamage; }
 
 	void set_wingFrontLeft(int value) { m_wingFrontLeft = value; }
 	void set_wingFrontRight(int value) { m_wingFrontRight = value; }

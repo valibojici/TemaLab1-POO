@@ -10,9 +10,9 @@ private:
 	bool m_isMissing;
 
 public:
-	bool get_isBroken() { return m_isBroken; }
-	bool get_isWornOut() { return m_isWornOut; }
-	bool get_isMissing() { return m_isMissing; }
+	bool get_isBroken() const { return m_isBroken; }
+	bool get_isWornOut() const { return m_isWornOut; }
+	bool get_isMissing() const { return m_isMissing; }
 
 	void set_isBroken(bool value) { m_isBroken = value; }
 	void set_isWornOut(bool value) { m_isWornOut = value; }

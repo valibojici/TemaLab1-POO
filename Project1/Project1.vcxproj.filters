@@ -48,6 +48,9 @@
     <ClCompile Include="chain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="handlebars.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wheel.h">
@@ -68,9 +71,6 @@
     <ClInclude Include="engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="emissions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="body.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="chain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="handlebars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="emissions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
