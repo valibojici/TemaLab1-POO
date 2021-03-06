@@ -2,7 +2,7 @@
 #include "autoshop.h"
 
 
-float Light::getRepairCost(const AutoShop& shop)
+float Light::getRepairCost(const AutoShop& shop) const
 {
 	float cost = 0;
 	if (m_isBroken)

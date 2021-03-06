@@ -52,5 +52,7 @@ public:
 
 	void menu();
 
+	float getRepairCost() const;
+
 	friend std::ostream& operator<<(std::ostream& out,const Car& car);
 };

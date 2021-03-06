@@ -29,7 +29,7 @@ std::ostream& operator<<(std::ostream& out, const Engine& en)
 	return out;
 }
 
-float Engine::getRepairCost(const AutoShop& shop)
+float Engine::getRepairCost(const AutoShop& shop) const
 {
 	if (m_hasExtremeDamage)
 	{

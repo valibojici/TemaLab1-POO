@@ -34,7 +34,7 @@ std::ostream& operator<<(std::ostream& out, const Wheel& w)
 	return out;
 }
 
-float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel)
+float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel) const
 {
 	if (m_hasExtremeDamage)
 	{

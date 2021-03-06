@@ -1,7 +1,7 @@
 #include "emissions.h"
 #include "autoshop.h"
 
-float Emissions::getRepairCost(const AutoShop& shop)
+float Emissions::getRepairCost(const AutoShop& shop) const
 {
 	float cost = 0;
 	if (m_isBurningOil)

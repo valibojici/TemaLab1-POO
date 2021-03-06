@@ -19,7 +19,7 @@ public:
 	Light(bool isBroken, bool isDisconnected) : m_isBroken(isBroken), m_isDisconnected(isDisconnected) {}
 
 	void wear();
-	float getRepairCost(const AutoShop& shop);
+	float getRepairCost(const AutoShop& shop) const;
 	
 	friend std::ostream& operator<< (std::ostream& out, const Light& light);
 

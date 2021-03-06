@@ -41,7 +41,7 @@ public:
 	Body(unsigned wingFR, unsigned wingFL, unsigned wingRL, unsigned wingRR, unsigned bumper, unsigned hood, unsigned rust, bool extremeDamage = 0);
 
 	void wear();
-	float getRepairCost(const AutoShop& shop);
+	float getRepairCost(const AutoShop& shop) const;
 	
 	friend std::ostream& operator<<(std::ostream& out, const Body& body);
 

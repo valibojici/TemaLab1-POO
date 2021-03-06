@@ -25,7 +25,7 @@ std::ostream& operator<<(std::ostream& out, const Handlebars& hand)
 	return out;
 }
 
-float Handlebars::getRepairCost(const AutoShop& shop)
+float Handlebars::getRepairCost(const AutoShop& shop) const
 {
 	float cost = 0;
 	if (m_isShaking)

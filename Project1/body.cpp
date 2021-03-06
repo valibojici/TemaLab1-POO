@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& out, const Body& body)
 	return out;
 }
 
-float Body::getRepairCost(const AutoShop& shop)
+float Body::getRepairCost(const AutoShop& shop) const
 {
 	if (m_hasExtremeDamage)
 	{

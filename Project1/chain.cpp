@@ -25,7 +25,7 @@ std::ostream& operator<<(std::ostream& out, const Chain& chain)
 	return out;
 }
 
-float Chain::getRepairCost(const AutoShop& shop, bool isBicycle)
+float Chain::getRepairCost(const AutoShop& shop, bool isBicycle) const
 {
 	float cost = 0;
 	if (m_isWornOut || m_isMissing)

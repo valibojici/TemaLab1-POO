@@ -20,7 +20,7 @@ public:
 		: m_isMadeBefore2000(isMadeBefore2000), m_isBurningOil(isBurningOil) {}
 
 	void wear();
-	float getRepairCost(const AutoShop& shop);
+	float getRepairCost(const AutoShop& shop) const;
 	
 	friend std::ostream& operator<<(std::ostream& out, const Emissions& em);
 

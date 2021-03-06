@@ -23,7 +23,7 @@ public:
 
 	void wear();
 
-	float getRepairCost(const AutoShop& shop, bool isBicycle);
+	float getRepairCost(const AutoShop& shop, bool isBicycle) const;
 	
 	friend std::ostream& operator<<(std::ostream& out, const Chain& chain);
 

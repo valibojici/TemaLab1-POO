@@ -27,7 +27,7 @@ public:
 	void set_hasExtremeDamage(bool value) { m_hasExtremeDamage = value; }
 
 	void wear();
-	float getRepairCost(const AutoShop& shop, bool isFrontWheel);
+	float getRepairCost(const AutoShop& shop, bool isFrontWheel) const;
 	
 	friend std::ostream& operator<<(std::ostream& out, const Wheel& w);
 

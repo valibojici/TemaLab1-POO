@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 #include "car.h"
 #include "moto.h"
@@ -31,6 +32,10 @@ private:
 	Car m_car;
 	Bike m_bike;
 	Moto m_moto;
+
+	std::vector<std::pair<std::string, const Car> > m_cars;
+	std::vector<std::pair<std::string, const Moto> > m_motos;
+	std::vector< std::pair<std::string, const Bike> > m_bikes;
 
 public:
 	AutoShop();
@@ -86,4 +91,8 @@ public:
 	Moto get_moto() const { return m_moto; }
 
 	void mainMenu();
+
+	AutoShop& operator+= (std::pair<std::string,const Car>);
+	AutoShop& operator+= (std::pair<std::string,const Moto>);
+	AutoShop& operator+= (std::pair<std::string,const Bike>);
 };

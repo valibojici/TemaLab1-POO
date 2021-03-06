@@ -30,7 +30,7 @@ public:
 	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage = 0);
 
 	void wear();
-	float getRepairCost(const AutoShop& shop);
+	float getRepairCost(const AutoShop& shop) const;
 	
 	friend std::ostream& operator<< (std::ostream& out, const Engine& eng);
 
