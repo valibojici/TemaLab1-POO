@@ -49,5 +49,7 @@ public:
 	void menu();
 
 	friend std::ostream& operator<<(std::ostream& out, const Moto& moto);
+
+	float getRepairCost() const;
 };
 

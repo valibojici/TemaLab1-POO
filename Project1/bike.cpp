@@ -49,11 +49,11 @@ void Bike::menu()
 std::ostream& operator<<(std::ostream& out, const Bike& bike)
 {
 	float cost = 0;
-	float total = 0;
+	float total = bike.getRepairCost();
 
 	// front wheel
 	cost = bike.get_wheelFront().getRepairCost(*bike.m_shop, true);
-	total += cost;
+
 	if (cost || bike.get_wheelFront().get_hasExtremeDamage())
 	{
 		out << "-> Front wheel: " << cost << " $\n" << bike.get_wheelFront() << "\n\n";
@@ -61,7 +61,7 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 
 	// rear wheel
 	cost = bike.get_wheelRear().getRepairCost(*bike.m_shop, false);
-	total += cost;
+
 	if (cost || bike.get_wheelRear().get_hasExtremeDamage())
 	{
 		out << "-> Rear wheel: " << cost << " $\n" << bike.get_wheelRear() << "\n\n";
@@ -69,7 +69,7 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 
 	// handlebars
 	cost = bike.get_handlebars().getRepairCost(*bike.m_shop);
-	total += cost;
+
 	if (cost) 
 	{
 		out << "-> Handlebars: " << cost << " $\n" << bike.get_handlebars() << "\n\n";
@@ -77,7 +77,7 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 
 	// chain
 	cost = bike.get_chain().getRepairCost(*bike.m_shop, false);
-	total += cost;
+
 	if (cost)
 	{
 		out << "-> Chain: " << cost << " $\n" << bike.get_chain() << "\n\n";
@@ -85,4 +85,12 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
  
 	out << "\nTOTAL: " << total << " $\n";
 	return out;
+}
+
+float Bike::getRepairCost() const
+{
+	return m_wheelFront.getRepairCost(*m_shop, true) +
+		m_wheelRear.getRepairCost(*m_shop, false) +
+		m_chain.getRepairCost(*m_shop, true) +
+		m_handlebars.getRepairCost(*m_shop);
 }

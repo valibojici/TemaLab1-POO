@@ -58,11 +58,11 @@ void Moto::menu()
 std::ostream& operator<< (std::ostream& out, const Moto& moto)
 {
 	float cost = 0;
-	float total = 0;
+	float total = moto.getRepairCost();
 
 	// engine
 	cost = moto.get_engine().getRepairCost(*moto.m_shop);
-	total += cost;
+
 	if(cost || moto.get_engine().get_hasExtremeDamage())
 	{
 		out << "-> Engine: " << cost << " $\n" << moto.get_engine() << "\n\n";
@@ -70,7 +70,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// headlight
 	cost = moto.get_headLight().getRepairCost(*moto.m_shop);
-	total += cost;
+	
 	if (cost)
 	{
 		out << "-> Head light: " << cost << " $\n" << moto.get_headLight() << "\n\n";
@@ -78,7 +78,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// brakelight
 	cost = moto.get_brakeLight().getRepairCost(*moto.m_shop);
-	total += cost;
+	
 	if (cost)
 	{
 		out << "-> Brake light: " << cost << " $\n" << moto.get_brakeLight() << "\n\n";
@@ -86,7 +86,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// front wheel
 	cost = moto.get_wheelFront().getRepairCost(*moto.m_shop, true);
-	total += cost;
+	
 	if (cost || moto.get_wheelFront().get_hasExtremeDamage())
 	{
 		out << "-> Front wheel: " << cost << " $\n" << moto.get_wheelFront() << "\n\n";
@@ -94,7 +94,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// rear wheel
 	cost = moto.get_wheelRear().getRepairCost(*moto.m_shop, false);
-	total += cost;
+	
 	if (cost || moto.get_wheelRear().get_hasExtremeDamage())
 	{
 		out << "-> Rear wheel: " << cost << " $\n" << moto.get_wheelRear() << "\n\n";
@@ -102,7 +102,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// handlebars
 	cost = moto.get_handlebars().getRepairCost(*moto.m_shop);
-	total += cost;
+	
 	if (cost)
 	{
 		out << "-> Handlebars: " << cost << " $\n" << moto.get_handlebars() << "\n\n";
@@ -110,7 +110,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// chain
 	cost = moto.get_chain().getRepairCost(*moto.m_shop, false);
-	total += cost;
+	
 	if (cost)
 	{
 		out << "-> Chain: " << cost << " $\n" << moto.get_chain() << "\n\n";
@@ -118,7 +118,7 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	// emissions
 	cost = moto.get_emissions().getRepairCost(*moto.m_shop);
-	total += cost;
+	
 	if (cost)
 	{
 		out << "-> Emissions: " << cost << " $\n" << moto.get_emissions() << "\n\n";
@@ -126,4 +126,16 @@ std::ostream& operator<< (std::ostream& out, const Moto& moto)
 
 	out << "\nTOTAL: " << total << " $\n";
 	return out;
+}
+
+float Moto::getRepairCost() const
+{
+	return m_engine.getRepairCost(*m_shop) +
+		m_headLight.getRepairCost(*m_shop) +
+		m_brakeLight.getRepairCost(*m_shop) +
+		m_wheelFront.getRepairCost(*m_shop, true) +
+		m_wheelRear.getRepairCost(*m_shop, false) +
+		m_chain.getRepairCost(*m_shop, false) +
+		m_handlebars.getRepairCost(*m_shop) +
+		m_emissions.getRepairCost(*m_shop);
 }

@@ -34,6 +34,8 @@ public:
 	void wear();
 	void menu();
 
+	float getRepairCost() const;
+
 	friend std::ostream& operator<<(std::ostream& out, const Bike& bike);
 };
 
