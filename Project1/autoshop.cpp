@@ -48,12 +48,12 @@ void AutoShop::mainMenu()
 			 
 			for (auto& x : m_motos)
 			{
-				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Moto\n";
+				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Moto | Cost: " << x.second.getRepairCost() << "\n";
 			}
 
 			for (auto& x : m_bikes)
 			{
-				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Bike\n";
+				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Bike | Cost: " << x.second.getRepairCost() << "\n";
 			}
 		}
 		
