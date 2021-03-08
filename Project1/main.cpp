@@ -16,7 +16,7 @@ int main()
 	a.set_brakePadRearCost(50);
 	a.set_brakeDiscCost(100);
 	a.set_tireCost(350);
-	a.set_wheelAlignmentCost(400);
+	a.set_wheelAlignmentCost(100);
 	a.set_oilCost(60);
 	a.set_cleaningProductsCost(100);
 	a.set_batteryCost(200);
