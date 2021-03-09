@@ -10,6 +10,10 @@ private:
 	bool m_isMissing;
 
 public:
+	Chain() : m_isBroken(0), m_isWornOut(0), m_isMissing(0) {}
+	Chain(bool, bool, bool);
+	Chain(const Chain&);
+
 	bool get_isBroken() const { return m_isBroken; }
 	bool get_isWornOut() const { return m_isWornOut; }
 	bool get_isMissing() const { return m_isMissing; }
@@ -18,15 +22,11 @@ public:
 	void set_isWornOut(bool value) { m_isWornOut = value; }
 	void set_isMissing(bool value) { m_isMissing = value; }
 
-	Chain() : m_isBroken(0), m_isWornOut(0), m_isMissing(0) {}
-	Chain(bool isBroken, bool isWornOut, bool isMissing);
-
-	void wear();
-
-	float getRepairCost(const AutoShop& shop, bool isBicycle) const;
-	
-	friend std::ostream& operator<<(std::ostream& out, const Chain& chain);
-
 	void menu();
+	void wear();
+	float getRepairCost(const AutoShop&, bool) const;
+	
+	friend std::ostream& operator<<(std::ostream&, const Chain&);
+	Chain& operator=(const Chain&);
 };
 

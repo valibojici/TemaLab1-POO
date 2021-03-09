@@ -19,8 +19,9 @@ private:
 	Light m_headlightFL, m_headlightFR, m_brakelightRL, m_brakelightRR;
 	const AutoShop* m_shop;
 public:
-	Car() : m_shop(0) {}
+	Car() : m_shop(nullptr) {}
 	Car(const AutoShop &shop) : m_shop(&shop) {}
+	Car(const Car&);
 
 	Engine get_engine() const { return m_engine; }
 	Body get_body() const { return m_body; }
@@ -49,10 +50,9 @@ public:
 	void set_brakelightRR(Light value) { m_brakelightRR = value; }
 
 	void wear(); 
-
 	void menu();
-
 	float getRepairCost() const;
 
-	friend std::ostream& operator<<(std::ostream& out,const Car& car);
+	friend std::ostream& operator<<(std::ostream&, const Car&);
+	Car& operator=(const Car&);
 };

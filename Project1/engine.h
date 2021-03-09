@@ -13,6 +13,9 @@ private:
 	bool m_hasExtremeDamage;
 
 public:
+	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0), m_hasExtremeDamage(0) {}
+	Engine(bool, bool, bool, bool, bool extremeDamage = 0);
+	Engine(const Engine&);
 
 	bool get_lowOilLevel() const { return m_lowOilLevel; }
 	bool get_engineIsMelted() const { return m_engineIsMelted; }
@@ -26,13 +29,10 @@ public:
 	void set_batteryIsDischarghed(bool value) { m_batteryIsDischarghed = value; }
 	void set_hasExtremeDamage(bool value) { m_hasExtremeDamage = value; }
 
-	Engine() : m_lowOilLevel(0), m_engineIsMelted(0), m_isDirty(0), m_batteryIsDischarghed(0), m_hasExtremeDamage(0) {}
-	Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool batteryIsDischarged, bool extremeDamage = 0);
-
 	void wear();
-	float getRepairCost(const AutoShop& shop) const;
-	
-	friend std::ostream& operator<< (std::ostream& out, const Engine& eng);
-
 	void menu();
+	float getRepairCost(const AutoShop&) const;
+	
+	friend std::ostream& operator<< (std::ostream&, const Engine&);
+	Engine& operator=(const Engine&);
 };

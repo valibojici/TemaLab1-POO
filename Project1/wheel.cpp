@@ -8,30 +8,16 @@ Wheel::Wheel(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment, bool
 	m_alignment(alignment),
 	m_hasExtremeDamage(extremeDamage) {}
 
+Wheel::Wheel(const Wheel& other):
+	m_brakePad(other.m_brakePad),
+	m_brakeDisc(other.m_brakeDisc),
+	m_flatTire(other.m_flatTire),
+	m_alignment(other.m_alignment),
+	m_hasExtremeDamage(other.m_hasExtremeDamage) {}
 
 void Wheel::set_alignment(unsigned value)
 {
 	m_alignment = value > 3 ? 3 : value;
-}
-
-std::ostream& operator<<(std::ostream& out, const Wheel& w)
-{
-	if (w.m_hasExtremeDamage)
-	{
-		out << "Destroyed";
-		return out;
-	}
-	std::string prefix[] = { "", "slight", "medium", "major" };
-
-	out << (w.m_brakeDisc ? "damaged brake disc; " : "");
-	
-	out << (w.m_brakePad ? "damaged brake pad; " : "");
-	
-	out << (w.m_flatTire ? "flat tire; " : "");
-	
-	out << (w.m_alignment ? prefix[w.m_alignment] + " misaligment; " : "");
-
-	return out;
 }
 
 float Wheel::getRepairCost(const AutoShop& shop, bool isFrontWheel) const
@@ -111,4 +97,37 @@ void Wheel::menu()
 			}
 		}
 	} while (option != 0);
+}
+
+std::ostream& operator<<(std::ostream& out, const Wheel& w)
+{
+	if (w.m_hasExtremeDamage)
+	{
+		out << "Destroyed";
+		return out;
+	}
+	std::string prefix[] = { "", "slight", "medium", "major" };
+
+	out << (w.m_brakeDisc ? "damaged brake disc; " : "");
+
+	out << (w.m_brakePad ? "damaged brake pad; " : "");
+
+	out << (w.m_flatTire ? "flat tire; " : "");
+
+	out << (w.m_alignment ? prefix[w.m_alignment] + " misaligment; " : "");
+
+	return out;
+}
+
+Wheel& Wheel::operator=(const Wheel& other)
+{
+	if (this != &other)
+	{
+		m_brakePad = other.m_brakePad;
+		m_brakeDisc = other.m_brakeDisc;
+		m_flatTire = other.m_flatTire;
+		m_alignment = other.m_alignment;
+		m_hasExtremeDamage = other.m_hasExtremeDamage;
+	}
+	return *this;
 }

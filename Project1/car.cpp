@@ -1,5 +1,20 @@
 #include "car.h"
 
+Car::Car(const Car& other):
+	m_engine(other.m_engine),
+	m_body(other.m_body),
+	m_wheelFL(other.m_wheelFL),
+	m_wheelFR(other.m_wheelFR),
+	m_wheelRL(other.m_wheelRL),
+	m_wheelRR(other.m_wheelRR),
+	m_emissions(other.m_emissions),
+	m_headlightFL(other.m_headlightFL),
+	m_headlightFR(other.m_headlightFR),
+	m_brakelightRL(other.m_brakelightRL),
+	m_brakelightRR(other.m_brakelightRR),
+	m_shop(other.m_shop) {}
+
+
 void Car::wear()
 {
 	m_engine.wear();
@@ -67,11 +82,27 @@ void Car::menu()
 	} while (option != 0);
 }
 
-std::ostream& operator<<(std::ostream& out,const Car& car)
+float Car::getRepairCost() const
+{
+	if (!m_shop) return -1;
+	return	m_engine.getRepairCost(*m_shop) +
+		m_body.getRepairCost(*m_shop) +
+		m_wheelFL.getRepairCost(*m_shop, true) +
+		m_wheelFR.getRepairCost(*m_shop, true) +
+		m_wheelRL.getRepairCost(*m_shop, false) +
+		m_wheelRR.getRepairCost(*m_shop, false) +
+		m_emissions.getRepairCost(*m_shop) +
+		m_headlightFL.getRepairCost(*m_shop) +
+		m_headlightFR.getRepairCost(*m_shop) +
+		m_brakelightRL.getRepairCost(*m_shop) +
+		m_brakelightRR.getRepairCost(*m_shop);
+}
+
+std::ostream& operator<<(std::ostream& out, const Car& car)
 {
 	float total = car.getRepairCost();
 	float cost = 0;
-	
+
 	// engine
 	cost = car.get_engine().getRepairCost(*car.m_shop);
 
@@ -87,7 +118,7 @@ std::ostream& operator<<(std::ostream& out,const Car& car)
 	{
 		out << "-> Front Left Headlight: " << cost << " $\n" << car.get_headlightFL() << "\n\n";
 	}
-	
+
 	// front right headlight
 	cost = car.get_headlightFR().getRepairCost(*car.m_shop);
 
@@ -111,7 +142,7 @@ std::ostream& operator<<(std::ostream& out,const Car& car)
 	{
 		out << "-> Rear Right Brakelight: " << cost << " $\n" << car.get_brakelightRR() << "\n\n";
 	}
-	
+
 	// body
 	cost = car.get_body().getRepairCost(*car.m_shop);
 
@@ -121,7 +152,7 @@ std::ostream& operator<<(std::ostream& out,const Car& car)
 	}
 
 	// front left wheel
-	cost = car.get_wheelFL().getRepairCost(*car.m_shop,true);
+	cost = car.get_wheelFL().getRepairCost(*car.m_shop, true);
 
 	if (cost)
 	{
@@ -159,25 +190,28 @@ std::ostream& operator<<(std::ostream& out,const Car& car)
 	{
 		out << "-> Emissions: " << cost << " $\n" << car.get_emissions() << "\n\n";
 	}
-	
-	out << "\nTOTAL: " << total << " $\n";
+
+	out << "TOTAL: " << total << " $\n";
 
 	return out;
 }
 
-
-float Car::getRepairCost() const
+Car& Car::operator=(const Car& other)
 {
-	if (!m_shop) return -1;
-	return	m_engine.getRepairCost(*m_shop) +
-		m_body.getRepairCost(*m_shop) +
-		m_wheelFL.getRepairCost(*m_shop, true) +
-		m_wheelFR.getRepairCost(*m_shop, true) +
-		m_wheelRL.getRepairCost(*m_shop, false) +
-		m_wheelRR.getRepairCost(*m_shop, false) +
-		m_emissions.getRepairCost(*m_shop) +
-		m_headlightFL.getRepairCost(*m_shop) +
-		m_headlightFR.getRepairCost(*m_shop) +
-		m_brakelightRL.getRepairCost(*m_shop) +
-		m_brakelightRR.getRepairCost(*m_shop);
+	if (this != &other)
+	{
+		m_engine = other.m_engine;
+		m_body = other.m_body;
+		m_wheelFL = other.m_wheelFL;
+		m_wheelFR = other.m_wheelFR;
+		m_wheelRL = other.m_wheelRL;
+		m_wheelRR = other.m_wheelRR;
+		m_emissions = other.m_emissions;
+		m_headlightFL = other.m_headlightFL;
+		m_headlightFR = other.m_headlightFR;
+		m_brakelightRL = other.m_brakelightRL;
+		m_brakelightRR = other.m_brakelightRR;
+		m_shop = other.m_shop;
+	}
+	return *this;
 }

@@ -1,6 +1,14 @@
 #include "emissions.h"
 #include "autoshop.h"
 
+Emissions::Emissions(bool isMadeBefore2000, bool isBurningOil):
+	m_isMadeBefore2000(isMadeBefore2000), 
+	m_isBurningOil(isBurningOil) {}
+
+Emissions::Emissions(const Emissions& other) :
+	m_isMadeBefore2000(other.m_isMadeBefore2000),
+	m_isBurningOil(other.m_isBurningOil) {}
+
 float Emissions::getRepairCost(const AutoShop& shop) const
 {
 	float cost = 0;
@@ -19,13 +27,6 @@ float Emissions::getRepairCost(const AutoShop& shop) const
 		cost += shop.get_aluminiumCost() * 5;
 	}
 	return round(cost * 100) / 100;
-}
-
-std::ostream& operator<<(std::ostream& out, const Emissions& em)
-{
-	out << (em.m_isBurningOil ? "is burning oil; " : "");
-	out << (em.m_isMadeBefore2000 ? "is made before 2000; " : "");
-	return out;
 }
 
 
@@ -49,4 +50,21 @@ void Emissions::menu()
 			break;
 		}
 	} while (option != 0);
+}
+
+std::ostream& operator<<(std::ostream& out, const Emissions& em)
+{
+	out << (em.m_isBurningOil ? "is burning oil; " : "");
+	out << (em.m_isMadeBefore2000 ? "is made before 2000; " : "");
+	return out;
+}
+
+Emissions& Emissions::operator=(const Emissions& other)
+{
+	if (this != &other)
+	{
+		m_isMadeBefore2000 = other.m_isMadeBefore2000;
+		m_isBurningOil = other.m_isBurningOil;
+	}
+	return *this;
 }

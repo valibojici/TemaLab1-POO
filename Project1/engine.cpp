@@ -9,25 +9,12 @@ Engine::Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool battery
 	m_hasExtremeDamage(extremeDamage),
 	m_batteryIsDischarghed(batteryIsDischarged) {}
 
-
-std::ostream& operator<<(std::ostream& out, const Engine& en)
-{
-	if (en.m_hasExtremeDamage)
-	{
-		out << "Destroyed";
-		return out;
-	}
-
-	out << (en.m_lowOilLevel ? "low oil level; " : "");
-
-	out << (en.m_engineIsMelted ? "engine is melted; " : "");
-
-	out << (en.m_isDirty ? "engine is dirty; " : "");
-
-	out << (en.m_batteryIsDischarghed ? "discharged battery; " : "");
-
-	return out;
-}
+Engine::Engine(const Engine& other) :
+	m_lowOilLevel(other.m_lowOilLevel),
+	m_engineIsMelted(other.m_engineIsMelted),
+	m_isDirty(other.m_isDirty),
+	m_hasExtremeDamage(other.m_hasExtremeDamage),
+	m_batteryIsDischarghed(other.m_batteryIsDischarghed) {}
 
 float Engine::getRepairCost(const AutoShop& shop) const
 {
@@ -102,3 +89,35 @@ void Engine::menu()
 		}
 	} while (option != 0);
 }
+
+std::ostream& operator<<(std::ostream& out, const Engine& en)
+{
+	if (en.m_hasExtremeDamage)
+	{
+		out << "Destroyed";
+		return out;
+	}
+
+	out << (en.m_lowOilLevel ? "low oil level; " : "");
+
+	out << (en.m_engineIsMelted ? "engine is melted; " : "");
+
+	out << (en.m_isDirty ? "engine is dirty; " : "");
+
+	out << (en.m_batteryIsDischarghed ? "discharged battery; " : "");
+
+	return out;
+}
+
+Engine& Engine::operator=(const Engine& other)
+{
+	if (this != &other)
+	{
+		m_lowOilLevel = other.m_lowOilLevel;
+		m_engineIsMelted = other.m_engineIsMelted;
+		m_isDirty = other.m_isDirty;
+		m_hasExtremeDamage = other.m_hasExtremeDamage;
+		m_batteryIsDischarghed = other.m_batteryIsDischarghed;
+	}
+	return *this;
+}	

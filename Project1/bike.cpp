@@ -1,5 +1,13 @@
 #include "bike.h"
 
+Bike::Bike(const Bike& other) :
+	m_wheelFront(other.m_wheelFront),
+	m_wheelRear(other.m_wheelRear),
+	m_handlebars(other.m_handlebars),
+	m_chain(other.m_chain),
+	m_shop(other.m_shop) {}
+
+
 void Bike::wear()
 {
 	m_wheelFront.wear();
@@ -46,6 +54,14 @@ void Bike::menu()
 	} while (option != 0);
 }
 
+float Bike::getRepairCost() const
+{
+	return m_wheelFront.getRepairCost(*m_shop, true) +
+		m_wheelRear.getRepairCost(*m_shop, false) +
+		m_chain.getRepairCost(*m_shop, true) +
+		m_handlebars.getRepairCost(*m_shop);
+}
+
 std::ostream& operator<<(std::ostream& out, const Bike& bike)
 {
 	float cost = 0;
@@ -76,21 +92,26 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike)
 	}
 
 	// chain
-	cost = bike.get_chain().getRepairCost(*bike.m_shop, false);
+	cost = bike.get_chain().getRepairCost(*bike.m_shop, true);
 
 	if (cost)
 	{
 		out << "-> Chain: " << cost << " $\n" << bike.get_chain() << "\n\n";
 	}
  
-	out << "\nTOTAL: " << total << " $\n";
+	out << "TOTAL: " << total << " $\n";
 	return out;
 }
 
-float Bike::getRepairCost() const
+Bike& Bike::operator=(const Bike& other)
 {
-	return m_wheelFront.getRepairCost(*m_shop, true) +
-		m_wheelRear.getRepairCost(*m_shop, false) +
-		m_chain.getRepairCost(*m_shop, true) +
-		m_handlebars.getRepairCost(*m_shop);
+	if (this != &other)
+	{
+		m_wheelFront = other.m_wheelFront;
+		m_wheelRear = other.m_wheelRear;
+		m_handlebars = other.m_handlebars;
+		m_chain = other.m_chain;
+		m_shop = other.m_shop;
+	}
+	return *this;
 }

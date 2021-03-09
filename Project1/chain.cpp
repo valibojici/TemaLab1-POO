@@ -6,24 +6,10 @@ Chain::Chain(bool isBroken, bool isWornOut, bool isMissing):
 	m_isWornOut(isWornOut),
 	m_isMissing(isMissing) {}
 
-
-
-std::ostream& operator<<(std::ostream& out, const Chain& chain)
-{
-	if (chain.m_isMissing)
-	{
-		out << "missing chain";
-		return out;
-	}
-
-	if (chain.m_isBroken || chain.m_isWornOut)
-	{
-		out << (chain.m_isBroken ? "broken " : "");
-		out << (chain.m_isWornOut ? "worn out " : "");
-		out << "chain";
-	}
-	return out;
-}
+Chain::Chain(const Chain& other):
+	m_isBroken(other.m_isBroken),
+	m_isWornOut(other.m_isWornOut),
+	m_isMissing(other.m_isMissing) {}
 
 float Chain::getRepairCost(const AutoShop& shop, bool isBicycle) const
 {
@@ -69,4 +55,32 @@ void Chain::menu()
 			break;
 		}
 	} while (option != 0);
+}
+
+std::ostream& operator<<(std::ostream& out, const Chain& chain)
+{
+	if (chain.m_isMissing)
+	{
+		out << "missing chain";
+		return out;
+	}
+
+	if (chain.m_isBroken || chain.m_isWornOut)
+	{
+		out << (chain.m_isBroken ? "broken " : "");
+		out << (chain.m_isWornOut ? "worn out " : "");
+		out << "chain";
+	}
+	return out;
+}
+
+Chain& Chain::operator=(const Chain& other)
+{
+	if (this != &other)
+	{
+		m_isBroken = other.m_isBroken;
+		m_isWornOut = other.m_isWornOut;
+		m_isMissing = other.m_isMissing;
+	}
+	return *this;
 }

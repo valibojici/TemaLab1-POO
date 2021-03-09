@@ -1,28 +1,24 @@
 #include "handlebars.h"
 #include "autoshop.h"
 
+Handlebars::Handlebars(bool isShaking, unsigned alignment) :
+	m_isShaking(isShaking), 
+	m_alignment(alignment) {}
+
+
+Handlebars::Handlebars(const Handlebars& other) :
+	m_isShaking(other.m_isShaking),
+	m_alignment(other.m_alignment) {}
+
 void Handlebars::set_alignment(unsigned value)
 {
 	m_alignment = value > 3 ? 3 : value;
 }
 
-
 void Handlebars::wear()
 {
 	m_isShaking = rand() % 2;
 	m_alignment = rand() % 4;
-}
-
-std::ostream& operator<<(std::ostream& out, const Handlebars& hand)
-{
-	std::string prefix[] = { "", "slight", "medium", "major" };
-	if (hand.m_isShaking || hand.m_alignment)
-	{
-		out << (hand.m_isShaking ? "shaking " : "");
-		out << (hand.m_alignment ? prefix[hand.m_alignment] + " misaligned " : "");
-		out << "handlebars";
-	}
-	return out;
 }
 
 float Handlebars::getRepairCost(const AutoShop& shop) const
@@ -60,4 +56,26 @@ void Handlebars::menu()
 			this->set_alignment(value);
 		}
 	} while (option != 0);
+}
+
+std::ostream& operator<<(std::ostream& out, const Handlebars& hand)
+{
+	std::string prefix[] = { "", "slight", "medium", "major" };
+	if (hand.m_isShaking || hand.m_alignment)
+	{
+		out << (hand.m_isShaking ? "shaking " : "");
+		out << (hand.m_alignment ? prefix[hand.m_alignment] + " misaligned " : "");
+		out << "handlebars";
+	}
+	return out;
+}
+
+Handlebars& Handlebars::operator=(const Handlebars& other)
+{
+	if (this != &other)
+	{
+		m_isShaking = other.m_isShaking;
+		m_alignment = other.m_alignment;
+	}
+	return *this;
 }

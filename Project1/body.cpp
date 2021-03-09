@@ -11,6 +11,17 @@ Body::Body(unsigned wingFR, unsigned wingFL, unsigned wingRL, unsigned wingRR, u
 	m_rust(rust),
 	m_hasExtremeDamage(extremeDamage) {}
 
+Body::Body(const Body& other):
+	m_wingFrontRight(other.m_wingFrontRight),
+	m_wingFrontLeft(other.m_wingFrontLeft),
+	m_wingRearLeft(other.m_wingRearLeft),
+	m_wingRearRight(other.m_wingRearRight),
+	m_bumper(other.m_bumper),
+	m_hood(other.m_hood),
+	m_rust(other.m_rust),
+	m_hasExtremeDamage(other.m_hasExtremeDamage) {}
+
+
 void Body::set_wingFrontLeft(unsigned value)
 {
 	m_wingFrontLeft = value > 3 ? 3 : value;
@@ -46,32 +57,6 @@ void Body::set_rust(unsigned value)
 	m_rust = value > 3 ? 3 : value;;
 }
 
-std::ostream& operator<<(std::ostream& out, const Body& body)
-{
-	if (body.m_hasExtremeDamage)
-	{
-		out << "Destroyed";
-		return out;
-	}
-
-	std::string prefix[] = { "", "slight", "medium", "major" };
-
-	out << (body.m_wingFrontLeft ? prefix[body.m_wingFrontLeft] + " dent front left wing; " : "");
-
-	out << (body.m_wingFrontRight ? prefix[body.m_wingFrontRight] + " dent front right wing; " : "");
-
-	out << (body.m_wingRearLeft ? prefix[body.m_wingRearLeft] + " dent rear left wing; " : "");
-
-	out << (body.m_wingRearRight ? prefix[body.m_wingRearRight] + " dent rear right wing; " : "");
-
-	out << (body.m_bumper ? prefix[body.m_bumper] + " dent bumper; " : "");
-
-	out << (body.m_hood ? prefix[body.m_hood] + " dent hood; " : "");
-
-	out << (body.m_rust ? prefix[body.m_rust] + " rust problem; " : "");
- 
-	return out;
-}
 
 float Body::getRepairCost(const AutoShop& shop) const
 {
@@ -176,4 +161,47 @@ void Body::menu()
 			this->set_hasExtremeDamage(true);
 		}
 	} while (option != 0);
+}
+
+std::ostream& operator<<(std::ostream& out, const Body& body)
+{
+	if (body.m_hasExtremeDamage)
+	{
+		out << "Destroyed";
+		return out;
+	}
+
+	std::string prefix[] = { "", "slight", "medium", "major" };
+
+	out << (body.m_wingFrontLeft ? prefix[body.m_wingFrontLeft] + " dent front left wing; " : "");
+
+	out << (body.m_wingFrontRight ? prefix[body.m_wingFrontRight] + " dent front right wing; " : "");
+
+	out << (body.m_wingRearLeft ? prefix[body.m_wingRearLeft] + " dent rear left wing; " : "");
+
+	out << (body.m_wingRearRight ? prefix[body.m_wingRearRight] + " dent rear right wing; " : "");
+
+	out << (body.m_bumper ? prefix[body.m_bumper] + " dent bumper; " : "");
+
+	out << (body.m_hood ? prefix[body.m_hood] + " dent hood; " : "");
+
+	out << (body.m_rust ? prefix[body.m_rust] + " rust problem; " : "");
+
+	return out;
+}
+
+Body& Body::operator=(const Body& other)
+{
+	if (this != &other)
+	{
+		m_wingFrontRight = other.m_wingFrontRight;
+		m_wingFrontLeft = other.m_wingFrontLeft;
+		m_wingRearLeft = other.m_wingRearLeft;
+		m_wingRearRight = other.m_wingRearRight;
+		m_bumper = other.m_bumper;
+		m_hood = other.m_hood;
+		m_rust = other.m_rust;
+		m_hasExtremeDamage = other.m_hasExtremeDamage;
+	}
+	return *this;
 }

@@ -17,6 +17,11 @@ private:
 	const AutoShop* m_shop;
 
 public:
+	Bike() : m_shop(nullptr) {}
+	Bike(const AutoShop& shop) : m_shop(&shop) {}
+	Bike(const Bike&);
+
+
 	void set_wheelFront(Wheel wheel) { m_wheelFront = wheel; }
 	void set_wheelRear(Wheel wheel) { m_wheelRear = wheel; }
 	void set_chain(Chain chain) { m_chain = chain; }
@@ -28,14 +33,11 @@ public:
 	Chain get_chain() const {return m_chain; }
 	Handlebars get_handlebars() const {return m_handlebars; }
 
-	Bike() : m_shop(0) {}
-	Bike(const AutoShop& shop) : m_shop(&shop) {}
-	
 	void wear();
 	void menu();
-
 	float getRepairCost() const;
+	Bike& operator=(const Bike&);
 
-	friend std::ostream& operator<<(std::ostream& out, const Bike& bike);
+	friend std::ostream& operator<<(std::ostream&, const Bike&);
 };
 

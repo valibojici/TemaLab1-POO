@@ -12,7 +12,8 @@ private:
 	bool m_hasExtremeDamage;
 public:
 	Wheel() : m_brakePad(0), m_brakeDisc(0), m_flatTire(0), m_alignment(0), m_hasExtremeDamage(0) {}
-	Wheel(bool brakePad, bool brakeDisc, bool m_flatTire, int alignment, bool extremeDamage = false);
+	Wheel(bool, bool, bool, int, bool extremeDamage = false);
+	Wheel(const Wheel&);
 
 	bool get_brakePad() const { return m_brakePad; }
 	bool get_brakeDisc() const { return m_brakeDisc; }
@@ -27,10 +28,10 @@ public:
 	void set_hasExtremeDamage(bool value) { m_hasExtremeDamage = value; }
 
 	void wear();
-	float getRepairCost(const AutoShop& shop, bool isFrontWheel) const;
-	
-	friend std::ostream& operator<<(std::ostream& out, const Wheel& w);
-
 	void menu();
+	float getRepairCost(const AutoShop&, bool) const;
+	
+	friend std::ostream& operator<<(std::ostream&, const Wheel&);
+	Wheel& operator=(const Wheel&);
 };
 

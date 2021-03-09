@@ -22,8 +22,9 @@ private:
 	const AutoShop* m_shop;
 
 public:
-	Moto() : m_shop(0) {}
+	Moto() : m_shop(nullptr) {}
 	Moto(const AutoShop& shop) : m_shop(&shop) {}
+	Moto(const Moto&);
 
 	void set_engine(Engine engine) { m_engine = engine; }
 	void set_headLight(Light light) { m_headLight = light; }
@@ -45,11 +46,10 @@ public:
 	Emissions get_emissions() const { return m_emissions; }
 
 	void wear();
-
 	void menu();
-
-	friend std::ostream& operator<<(std::ostream& out, const Moto& moto);
-
 	float getRepairCost() const;
+
+	friend std::ostream& operator<<(std::ostream&, const Moto&);
+	Moto& operator=(const Moto&);
 };
 
