@@ -51,5 +51,6 @@ public:
 
 	friend std::ostream& operator<<(std::ostream&, const Moto&);
 	Moto& operator=(const Moto&);
+	~Moto();
 };
 

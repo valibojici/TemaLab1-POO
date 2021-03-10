@@ -39,5 +39,7 @@ public:
 	Bike& operator=(const Bike&);
 
 	friend std::ostream& operator<<(std::ostream&, const Bike&);
+
+	~Bike();
 };
 

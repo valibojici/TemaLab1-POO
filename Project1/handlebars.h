@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class AutoShop;
 
@@ -25,5 +26,6 @@ public:
 
 	friend std::ostream& operator<<(std::ostream&, const Handlebars&);
 	Handlebars& operator=(const Handlebars&);
+	~Handlebars();
 };
 

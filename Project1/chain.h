@@ -28,5 +28,6 @@ public:
 	
 	friend std::ostream& operator<<(std::ostream&, const Chain&);
 	Chain& operator=(const Chain&);
+	~Chain();
 };
 

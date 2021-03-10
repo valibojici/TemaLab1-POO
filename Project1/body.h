@@ -46,5 +46,7 @@ public:
 	
 	friend std::ostream& operator<<(std::ostream&, const Body&);
 	Body& operator=(const Body&);
+
+	~Body();
 };
 

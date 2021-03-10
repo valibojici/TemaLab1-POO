@@ -79,3 +79,8 @@ Handlebars& Handlebars::operator=(const Handlebars& other)
 	}
 	return *this;
 }
+
+Handlebars::~Handlebars()
+{
+	//std::cout << "Handlebars\n";
+}

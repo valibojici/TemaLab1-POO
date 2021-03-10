@@ -205,3 +205,8 @@ Body& Body::operator=(const Body& other)
 	}
 	return *this;
 }
+
+Body::~Body()
+{
+	//std::cout << "Body D\n";
+}

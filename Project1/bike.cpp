@@ -115,3 +115,8 @@ Bike& Bike::operator=(const Bike& other)
 	}
 	return *this;
 }
+
+Bike::~Bike()
+{
+	//std::cout << "Bike D\n";
+}

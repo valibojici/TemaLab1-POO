@@ -68,3 +68,8 @@ Emissions& Emissions::operator=(const Emissions& other)
 	}
 	return *this;
 }
+
+Emissions::~Emissions()
+{
+	//std::cout << "Emissions D\n";
+}

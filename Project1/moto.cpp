@@ -168,3 +168,8 @@ Moto& Moto::operator=(const Moto& other)
 	}
 	return *this;
 }
+
+Moto::~Moto()
+{
+	//std::cout << "Moto D\n";
+}

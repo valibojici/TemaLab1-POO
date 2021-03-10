@@ -215,3 +215,8 @@ Car& Car::operator=(const Car& other)
 	}
 	return *this;
 }
+
+Car::~Car()
+{
+	//std::cout << "Car D\n";
+}

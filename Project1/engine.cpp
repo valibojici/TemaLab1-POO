@@ -121,3 +121,8 @@ Engine& Engine::operator=(const Engine& other)
 	}
 	return *this;
 }	
+
+Engine::~Engine()
+{
+	//std::cout << "Engine D\n";
+}

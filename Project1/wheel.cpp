@@ -131,3 +131,8 @@ Wheel& Wheel::operator=(const Wheel& other)
 	}
 	return *this;
 }
+
+Wheel::~Wheel()
+{
+	//std::cout << "Wheel D\n";
+}

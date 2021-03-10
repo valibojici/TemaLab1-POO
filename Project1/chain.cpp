@@ -84,3 +84,8 @@ Chain& Chain::operator=(const Chain& other)
 	}
 	return *this;
 }
+
+Chain::~Chain()
+{
+	//std::cout << "Chain D\n";
+}

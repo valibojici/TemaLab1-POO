@@ -33,5 +33,6 @@ public:
 	
 	friend std::ostream& operator<<(std::ostream&, const Wheel&);
 	Wheel& operator=(const Wheel&);
+	~Wheel();
 };
 

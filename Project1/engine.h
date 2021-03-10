@@ -35,4 +35,5 @@ public:
 	
 	friend std::ostream& operator<< (std::ostream&, const Engine&);
 	Engine& operator=(const Engine&);
+	~Engine();
 };

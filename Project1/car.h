@@ -55,4 +55,5 @@ public:
 
 	friend std::ostream& operator<<(std::ostream&, const Car&);
 	Car& operator=(const Car&);
+	~Car();
 };

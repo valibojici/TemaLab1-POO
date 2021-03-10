@@ -25,5 +25,6 @@ public:
 	
 	friend std::ostream& operator<< (std::ostream&, const Light&);
 	Light& operator=(const Light&);
+	~Light();
 };
 

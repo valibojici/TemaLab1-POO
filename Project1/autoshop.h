@@ -33,12 +33,13 @@ private:
 	Bike m_bike;
 	Moto m_moto;
 
-	std::vector<std::pair<std::string, const Car> > m_cars;
-	std::vector<std::pair<std::string, const Moto> > m_motos;
-	std::vector< std::pair<std::string, const Bike> > m_bikes;
+	std::vector<std::pair<std::string, Car> > m_cars;
+	std::vector<std::pair<std::string, Moto> > m_motos;
+	std::vector<std::pair<std::string, Bike> > m_bikes;
 
 public:
 	AutoShop();
+	AutoShop(const AutoShop&);
 
 	void set_manHourCost(int value) { m_manHourCost = value; }
 	void set_brakePadFrontCost(int value) { m_brakePadFrontCost = value; }
@@ -92,7 +93,10 @@ public:
 
 	void mainMenu();
 
-	AutoShop& operator+= (std::pair<std::string,const Car>);
-	AutoShop& operator+= (std::pair<std::string,const Moto>);
-	AutoShop& operator+= (std::pair<std::string,const Bike>);
+	AutoShop& operator+= (std::pair<std::string, Car>);
+	AutoShop& operator+= (std::pair<std::string, Moto>);
+	AutoShop& operator+= (std::pair<std::string, Bike>);
+	AutoShop& operator= (const AutoShop&);
+
+	~AutoShop();
 };
