@@ -17,7 +17,8 @@ void AutoShop::mainMenu()
 		if (option >= 1 && option <= 3)
 		{
 			std::cout << "Client name: ";
-			std::cin >> client;
+			std::cin.get();
+			std::getline(std::cin, client);
 			switch (option)
 			{
 			case 1:
