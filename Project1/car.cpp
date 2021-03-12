@@ -146,7 +146,7 @@ std::ostream& operator<<(std::ostream& out, const Car& car)
 	// body
 	cost = car.get_body().getRepairCost(*car.m_shop);
 
-	if (cost)
+	if (cost || car.get_body().get_hasExtremeDamage())
 	{
 		out << "-> Body: " << cost << " $\n" << car.get_body() << "\n\n";
 	}
@@ -154,7 +154,7 @@ std::ostream& operator<<(std::ostream& out, const Car& car)
 	// front left wheel
 	cost = car.get_wheelFL().getRepairCost(*car.m_shop, true);
 
-	if (cost)
+	if (cost || car.get_wheelFL().get_hasExtremeDamage())
 	{
 		out << "-> Front Left Wheel: " << cost << " $\n" << car.get_wheelFL() << "\n\n";
 	}
@@ -162,7 +162,7 @@ std::ostream& operator<<(std::ostream& out, const Car& car)
 	// front right wheel
 	cost = car.get_wheelFR().getRepairCost(*car.m_shop, true);
 
-	if (cost)
+	if (cost || car.get_wheelFR().get_hasExtremeDamage())
 	{
 		out << "-> Front Right Wheel: " << cost << " $\n" << car.get_wheelFR() << "\n\n";
 	}
@@ -170,7 +170,7 @@ std::ostream& operator<<(std::ostream& out, const Car& car)
 	// rear left wheel
 	cost = car.get_wheelRL().getRepairCost(*car.m_shop, true);
 
-	if (cost)
+	if (cost || car.get_wheelRL().get_hasExtremeDamage())
 	{
 		out << "-> Rear Left Wheel: " << cost << " $\n" << car.get_wheelRL() << "\n\n";
 	}
@@ -178,7 +178,7 @@ std::ostream& operator<<(std::ostream& out, const Car& car)
 	// rear right wheel
 	cost = car.get_wheelRR().getRepairCost(*car.m_shop, true);
 
-	if (cost)
+	if (cost || car.get_wheelRR().get_hasExtremeDamage())
 	{
 		out << "-> Rear Right Wheel: " << cost << " $\n" << car.get_wheelRR() << "\n\n";
 	}
