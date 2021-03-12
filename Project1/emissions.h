@@ -7,8 +7,8 @@ class AutoShop;
 
 class Emissions {
 private:
-	bool m_isMadeBefore2000;
 	bool m_isBurningOil;
+	bool m_isMadeBefore2000;
 
 public:
 	Emissions() : m_isBurningOil(0), m_isMadeBefore2000(0) {}

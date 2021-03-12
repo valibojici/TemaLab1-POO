@@ -9,8 +9,8 @@ class AutoShop;
 class Body {
 private:
 	// values from 0 to 3 (0 = perfect condition/no rust 3 = very poor condition/a lot of rust)
-	unsigned m_wingFrontLeft;
 	unsigned m_wingFrontRight;
+	unsigned m_wingFrontLeft;
 	unsigned m_wingRearLeft;
 	unsigned m_wingRearRight;
 	unsigned m_bumper;
