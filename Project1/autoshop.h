@@ -33,9 +33,45 @@ private:
 	Bike m_bike;
 	Moto m_moto;
 
-	std::vector<std::pair<std::string, Car> > m_cars;
-	std::vector<std::pair<std::string, Moto> > m_motos;
-	std::vector<std::pair<std::string, Bike> > m_bikes;
+	class VehicleInfo {
+		std::string m_clientName;
+		Car m_car;
+		Bike m_bike;
+		Moto m_moto;
+		enum {CAR, BIKE, MOTO} m_type;
+	public:
+		VehicleInfo(const std::string& s, const Car& c) : 
+			m_clientName(s), m_car(c), m_type(CAR) {}
+		VehicleInfo(const std::string& s, const Moto& m) :
+			m_clientName(s), m_moto(m), m_type(MOTO) {}
+		VehicleInfo(const std::string& s, const Bike& b) : 
+			m_clientName(s), m_bike(b), m_type(BIKE) {}
+		int get_type() const { return m_type; }
+		Car get_car() const { return m_car; }
+		Moto get_moto() const { return m_moto; }
+		Bike get_bike() const { return m_bike; }
+		friend std::ostream& operator<<(std::ostream& out,const VehicleInfo& info)
+		{
+			out << "Client: " << info.m_clientName;
+			out << " | Vehicle type: ";
+			switch (info.m_type)
+			{
+			case VehicleInfo::CAR: out << "Car"; break;
+			case VehicleInfo::BIKE: out << "Bike"; break;
+			case VehicleInfo::MOTO: out << "Moto"; break;
+			}
+			out << " | Cost: ";
+			switch (info.m_type)
+			{
+			case VehicleInfo::CAR: out << info.m_car.getRepairCost() << '$'; break;
+			case VehicleInfo::BIKE: out << info.m_bike.getRepairCost() << '$'; break;
+			case VehicleInfo::MOTO: out << info.m_moto.getRepairCost() << '$'; break;
+			}
+			return out;
+		}
+	};
+
+	std::vector<VehicleInfo> m_history;
 
 public:
 	AutoShop();

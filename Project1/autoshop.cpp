@@ -31,9 +31,7 @@ AutoShop::AutoShop(const AutoShop& other) :
 	m_car(other.m_car),
 	m_moto(other.m_moto),
 	m_bike(other.m_bike),
-	m_cars(other.m_cars),
-	m_bikes(other.m_bikes),
-	m_motos(other.m_motos) {}
+	m_history(other.m_history) {}
 
 void AutoShop::mainMenu()
 {
@@ -69,20 +67,13 @@ void AutoShop::mainMenu()
 		else
 		if (option == 4)
 		{
-			unsigned count = 1;
-			for (auto& x : m_cars)
+			if (!m_history.size())
 			{
-				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Car | Cost: " << x.second.getRepairCost() << "\n";
+				std::cout << "No history\n";
 			}
-			 
-			for (auto& x : m_motos)
+			for (int i = 0; i < m_history.size(); ++i)
 			{
-				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Moto | Cost: " << x.second.getRepairCost() << "\n";
-			}
-
-			for (auto& x : m_bikes)
-			{
-				std::cout << (count++) << ". Client: " << x.first << " | Vehicle type: Bike | Cost: " << x.second.getRepairCost() << "\n";
+				std::cout << i + 1 << ": " << m_history[i] << '\n';
 			}
 		}
 		
@@ -92,19 +83,19 @@ void AutoShop::mainMenu()
 
 AutoShop& AutoShop::operator+=(std::pair<std::string, Car> info)
 {
-	m_cars.push_back({ info.first,info.second });
+	m_history.push_back({info.first, info.second});
 	return *this;
 }
 
 AutoShop& AutoShop::operator+=(std::pair<std::string, Moto> info)
 {
-	m_motos.push_back({ info.first,info.second });
+	m_history.push_back({ info.first, info.second });
 	return *this;
 }
 
 AutoShop& AutoShop::operator+=(std::pair<std::string, Bike> info)
 {
-	m_bikes.push_back({ info.first,info.second });
+	m_history.push_back({ info.first, info.second });
 	return *this;
 }
 
@@ -135,9 +126,7 @@ AutoShop& AutoShop::operator=(const AutoShop& other)
 		m_car = other.m_car;
 		m_moto = other.m_moto;
 		m_bike = other.m_bike;
-		m_cars = other.m_cars;
-		m_bikes = other.m_bikes;
-		m_motos = other.m_motos;
+		m_history = other.m_history;
 	}
 	return	*this;
 }
