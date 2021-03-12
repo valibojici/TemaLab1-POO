@@ -3,8 +3,8 @@
 Bike::Bike(const Bike& other) :
 	m_wheelFront(other.m_wheelFront),
 	m_wheelRear(other.m_wheelRear),
-	m_handlebars(other.m_handlebars),
 	m_chain(other.m_chain),
+	m_handlebars(other.m_handlebars),
 	m_shop(other.m_shop) {}
 
 

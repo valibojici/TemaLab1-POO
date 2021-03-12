@@ -29,8 +29,8 @@ AutoShop::AutoShop(const AutoShop& other) :
 	m_lightbulbCost(other.m_lightbulbCost),
 	m_emissionSensorCost(other.m_emissionSensorCost),
 	m_car(other.m_car),
-	m_moto(other.m_moto),
 	m_bike(other.m_bike),
+	m_moto(other.m_moto),
 	m_history(other.m_history) {}
 
 void AutoShop::mainMenu()
@@ -71,7 +71,7 @@ void AutoShop::mainMenu()
 			{
 				std::cout << "No history\n";
 			}
-			for (int i = 0; i < m_history.size(); ++i)
+			for (unsigned i = 0; i < m_history.size(); ++i)
 			{
 				std::cout << i + 1 << ": " << m_history[i] << '\n';
 			}

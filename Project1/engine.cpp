@@ -6,15 +6,15 @@ Engine::Engine(bool lowOilLevel, bool engineIsMelted, bool isDirty, bool battery
 	m_lowOilLevel(lowOilLevel),
 	m_engineIsMelted(engineIsMelted),
 	m_isDirty(isDirty),
-	m_hasExtremeDamage(extremeDamage),
-	m_batteryIsDischarghed(batteryIsDischarged) {}
+	m_batteryIsDischarghed(batteryIsDischarged),
+	m_hasExtremeDamage(extremeDamage) {}
 
 Engine::Engine(const Engine& other) :
 	m_lowOilLevel(other.m_lowOilLevel),
 	m_engineIsMelted(other.m_engineIsMelted),
 	m_isDirty(other.m_isDirty),
-	m_hasExtremeDamage(other.m_hasExtremeDamage),
-	m_batteryIsDischarghed(other.m_batteryIsDischarghed) {}
+	m_batteryIsDischarghed(other.m_batteryIsDischarghed),
+	m_hasExtremeDamage(other.m_hasExtremeDamage) {}
 
 float Engine::getRepairCost(const AutoShop& shop) const
 {

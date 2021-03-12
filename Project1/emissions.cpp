@@ -2,12 +2,12 @@
 #include "autoshop.h"
 
 Emissions::Emissions(bool isMadeBefore2000, bool isBurningOil):
-	m_isMadeBefore2000(isMadeBefore2000), 
-	m_isBurningOil(isBurningOil) {}
+	m_isBurningOil(isBurningOil),
+	m_isMadeBefore2000(isMadeBefore2000) {}
 
 Emissions::Emissions(const Emissions& other) :
-	m_isMadeBefore2000(other.m_isMadeBefore2000),
-	m_isBurningOil(other.m_isBurningOil) {}
+	m_isBurningOil(other.m_isBurningOil),
+	m_isMadeBefore2000(other.m_isMadeBefore2000) {}
 
 float Emissions::getRepairCost(const AutoShop& shop) const
 {
